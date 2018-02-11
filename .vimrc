@@ -29,6 +29,7 @@ set expandtab
 set encoding=utf-8
 
 " set language to be always english
+set helplang=EN
 set langmenu=en_US
 let $LANG='en_US'
 
