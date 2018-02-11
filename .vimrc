@@ -7,6 +7,12 @@
 
 " ========== GENERAL SETTINGS ==========
 
+" disable being compatible with vi
+set nocompatible
+
+" enable for faster terminal
+set ttyfast
+
 " always show line numbers
 set nu 
 
@@ -36,18 +42,16 @@ set wildmenu
 set guifont=Consolas:h14
 
 " remove the menubar of GVIM
-:set guioptions-=m 
+set guioptions-=m 
 
 " remove the toolbar of GVIM
-:set guioptions-=T 
+set guioptions-=T 
 
 " remove the right-hand scrollbar of GVIM
-:set guioptions-=r 
+set guioptions-=r 
 
 " remove the left-hand scrollbar of GVIM
-:set guioptions-=L 
-
-
+set guioptions-=L 
 
 " ========== COLORSCHEME  ==========
 
