@@ -143,3 +143,10 @@ hi Pmenu ctermbg=green guibg=gray
 
 " color fo the selected item
 hi PmenuSel ctermbg=yellow
+
+
+
+" ========== netrw (file browsing) ========== 
+
+" disable annoying banner when using netrw
+let g:netrw_banner=0
