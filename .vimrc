@@ -39,6 +39,12 @@ set textwidth=80
 " display all matching files when using 'find' command + tab
 set wildmenu
 
+" disable error bells
+set noerrorbells
+
+" automatically cd into the directory that the file is in
+set autochdir
+
 " set font of GVIM
 set guifont=Consolas:h14
 
