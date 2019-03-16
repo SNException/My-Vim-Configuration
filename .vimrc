@@ -92,7 +92,7 @@ inoremap <Right> <Nop>
 
 " remap jj to behave like esc when being in insert mode, this is for faster
 " switching
-noremap jj <ESC>
+inoremap jj <ESC>
 
 " toogle highlighting when searching; also map it to the F3 key
 set hlsearch!
