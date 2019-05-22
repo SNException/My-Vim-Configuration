@@ -1,84 +1,50 @@
-" ###############################
-" # MAIN VIM CONFIGURATION FILE #
-" ###############################
+" VIM CONFIGURATION FILE
+" ======================
+" ======================
+" ======================
+
+" MISC
+" ====
+
+" disable being compatible with vi
+set nocompatible
 
 " stops text from disapering when using console emulators like ConEmu or Cmder
 " this usally happens when going to the end or start of the file using G or gg
 " '32' seems to work quiet well
 set ttyscroll=32
 
-" disable being compatible with vi
-set nocompatible
-
-" enable for faster terminal
-set ttyfast
-
-" always show line numbers
-set nu 
-
-" enable syntax highlighting in case when editing src files
-syntax enable
-
-" adjust formatting
-set smartindent
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
-" define encoding
+" specify encoding
 set encoding=utf-8
 
-" set language to be always english
-set helplang=EN
-set langmenu=en_US
-let $LANG='en_US'
+" disable error bell sound
+set noerrorbells
 
-" define threshold for text wrapping
-set textwidth=80
+" make backspace work in insert mode
+set backspace=indent,eol,start
 
 " better searching
 set path+=**
 
-" display all matching files when using 'find' command + tab
-set wildmenu
-
-" disable error bells
-set noerrorbells
-
 " automatically cd into the directory that the file is in
 set autochdir
 
-" set font of GVIM
-set guifont=Consolas:h14
+" display all matching files when using 'find' command + tab
+set wildmenu
 
-" remove the menubar of GVIM
-set guioptions-=m 
+" auatomatically 'cd' into the directory that the file is in
+set autochdir
 
-" remove the toolbar of GVIM
-set guioptions-=T 
+" KEY MAPPINGS
+" ============
 
-" remove the right-hand scrollbar of GVIM
-set guioptions-=r 
-
-" remove the left-hand scrollbar of GVIM
-set guioptions-=L 
-
-" no lines should be longer than 80 characters
-match ErrorMsg '\%>80v.\+'
-
-if has("gui_running")
-    colorscheme evening
-else
-    colorscheme default
-endif
-
-" remap splits switching keys
+" split switching
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-" disable arrow keys in normal mode 
+" disable arrow keys in normal mode
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
@@ -90,18 +56,47 @@ inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 
-" remap jj to behave like esc when being in insert mode, this is for faster
-" switching
+" jj behaves like ESC in insert mode: This is for faster mode switching
 inoremap jj <ESC>
 
-" toogle highlighting when searching; also map it to the F3 key
-set hlsearch!
+" tap switching
+nmap <F7> :tabn<CR>
+nmap <F8> :tabp<CR>
+
+" run the current ruby file
+nmap <F6> :!ruby %<CR>
+
+" toggle highlighter when searching
 nnoremap <F3> :set hlsearch!<CR>
 
-" use a different background color when using GVIM
-if has("gui_running")
-    hi StatusLine guibg = darkblue
-endif
+" for copy pasting
+set pastetoggle=<F10>
+
+" Programming
+" ===========
+
+set smartindent
+set expandtab
+set autoindent
+" '2' for ruby dev
+set tabstop=2 
+set shiftwidth=2 
+set softtabstop=2
+
+" enable syntax highlighting when editing src files
+syntax enable
+
+set textwidth=80
+match ErrorMsg '\%>80v.\+'
+
+" Style
+" =====
+
+" show line numbers
+set nu 
+
+" colorscheme
+colorscheme default
 
 " always show the status line
 set laststatus=2
@@ -139,8 +134,11 @@ set statusline+=%l/%L
 " add percent through file to status line
 set statusline+=\ %P
 
-" enable backspace in insert mode
-set backspace=indent,eol,start
+" color of the whole background
+hi Pmenu ctermbg=green guibg=gray
+
+" color fo the selected item
+hi PmenuSel ctermbg=yellow
 
 " air line configuration
 set ttimeoutlen=50
@@ -151,18 +149,39 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
+let g:airline_powerline_fonts=1
+let g:airline_detect_paste=1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
 
-" for ruby development
-set expandtab
-set tabstop=2 shiftwidth=2 softtabstop=2
-set autoindent
+" GVIM SPECIFIC STYLE
+" ===================
 
-" color of the whole background
-hi Pmenu ctermbg=green guibg=gray
+" set font of GVIM
+set guifont=Consolas:h14
 
-" color fo the selected item
-hi PmenuSel ctermbg=yellow
+" remove the menubar of GVIM
+set guioptions-=m 
 
-" disable annoying banner when using netrw
-let g:netrw_banner=0
-filetype plugin on
+" remove the toolbar of GVIM
+set guioptions-=T 
+
+" remove the right-hand scrollbar of GVIM
+set guioptions-=r 
+
+" remove the left-hand scrollbar of GVIM
+set guioptions-=L 
+
+" LANGUAGE
+" ========
+
+set helplang=EN
+set langmenu=en_US
+let $LANG='en_US'
+
