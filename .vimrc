@@ -1,18 +1,18 @@
-" VIM CONFIGURATION FILE
-" ======================
-" ======================
-" ======================
+"
+" ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
+" ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
+" ██║   ██║██║██╔████╔██║██████╔╝██║     
+" ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║     
+"  ╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
+"   ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
+" =============================================
 
-" MISC
-" ====
+" -----------
+" BASIC STUFF
+" -----------
 
 " disable being compatible with vi
 set nocompatible
-
-" stops text from disapering when using console emulators like ConEmu or Cmder
-" this usally happens when going to the end or start of the file using G or gg
-" '32' seems to work quiet well
-set ttyscroll=32
 
 " specify encoding
 set encoding=utf-8
@@ -32,71 +32,33 @@ set autochdir
 " display all matching files when using 'find' command + tab
 set wildmenu
 
-" auatomatically 'cd' into the directory that the file is in
-set autochdir
-
-" KEY MAPPINGS
-" ============
-
-" split switching
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
-
-" disable arrow keys in normal mode
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-
-" disable arrow keys in insert mode
-inoremap <Up> <Nop>
-inoremap <Down> <Nop>
-inoremap <Left> <Nop>
-inoremap <Right> <Nop>
-
-" jj behaves like ESC in insert mode: This is for faster mode switching
-inoremap jj <ESC>
-
-" tap switching
-nmap <F7> :tabn<CR>
-nmap <F8> :tabp<CR>
-
-" run the current ruby file
-nmap <F6> :!ruby %<CR>
-
-" toggle highlighter when searching
-nnoremap <F3> :set hlsearch!<CR>
-
-" for copy pasting
-set pastetoggle=<F10>
-
-" Programming
-" ===========
-
+" text layouting
 set smartindent
 set expandtab
 set autoindent
-" '2' for ruby dev
-set tabstop=2 
-set shiftwidth=2 
-set softtabstop=2
+set tabstop=4
+set softtabstop=0 noexpandtab
+set shiftwidth=4
 
 " enable syntax highlighting when editing src files
-syntax enable
+" syntax on
 
+" max textwidth before wrapping
 set textwidth=80
-match ErrorMsg '\%>80v.\+'
 
-" Style
-" =====
+" Render red line when text goes over 80 characters in a single line
+" match ErrorMsg '\%>80v.\+'
 
-" show line numbers
-set nu 
+" stops text from disapering when using console emulators like ConEmu or Cmder
+" this usally happens when going to the end or start of the file using G or gg
+" '32' seems to work quiet well
+"set ttyscroll=32
 
-" colorscheme
+" set colorscheme (theme)
 colorscheme default
+
+" custom highlighting
+highlight int ctermfg=red
 
 " always show the status line
 set laststatus=2
@@ -137,51 +99,50 @@ set statusline+=\ %P
 " color of the whole background
 hi Pmenu ctermbg=green guibg=gray
 
-" color fo the selected item
+" color for the selected item
 hi PmenuSel ctermbg=yellow
 
-" air line configuration
-set ttimeoutlen=50
-let g:airline_theme = 'dark'
-let g:airline#extensions#hunks#enabled=0
-let g:airline#extensions#branch#enabled=1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-let g:airline_powerline_fonts=1
-let g:airline_detect_paste=1
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-
-" GVIM SPECIFIC STYLE
-" ===================
-
-" set font of GVIM
-set guifont=Consolas:h14
-
-" remove the menubar of GVIM
-set guioptions-=m 
-
-" remove the toolbar of GVIM
-set guioptions-=T 
-
-" remove the right-hand scrollbar of GVIM
-set guioptions-=r 
-
-" remove the left-hand scrollbar of GVIM
-set guioptions-=L 
-
-" LANGUAGE
-" ========
-
+" language definitions
 set helplang=EN
 set langmenu=en_US
 let $LANG='en_US'
 
+" ------------
+" KEY MAPPINGS
+" ------------
+
+" split switching
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+" disable arrow keys in normal mode
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" disable arrow keys in insert mode
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
+
+" better insert leaves
+inoremap jj <ESC>
+inoremap <C-c> <ESC>
+nnoremap <C-c> <ESC>
+
+" tap switching
+nmap <F7> :tabn<CR>
+nmap <F8> :tabp<CR>
+
+" run the current ruby file
+nmap <F6> :!ruby %<CR>
+
+" toggle highlighter when searching
+nnoremap <F3> :set hlsearch!<CR>
+
+" for copy pasting (set paste and set nopaste)
+set pastetoggle=<F10>
