@@ -20,9 +20,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'fxn/vim-monochrome'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
+Plug 'CreaturePhil/vim-handmade-hero'
 call plug#end()
 
-" STYLE
 set background=dark
 colorscheme iceberg
 let g:airline_theme='iceberg'
@@ -68,12 +68,25 @@ let mapleader = "\<Space>"
 nnoremap <Leader>b :!build.bat<CR>
 nnoremap <Leader>r :!run.bat<CR>
 nnoremap <Leader>0 :new<CR>:only<CR>
+nnoremap <Leader>z :vs<CR>:new<CR>:wincmd j<CR>:q<CR>:wincmd l<CR>
 nnoremap <Leader>e :e %
 nnoremap <Leader>c :call CommentOut()<CR>
 nnoremap <Leader><tab> :buffers<CR>:buffer<Space>
 nnoremap <Leader>f :find 
 nnoremap <Leader><Esc> :call CloseAllBuffersExceptCurrent()<CR>
 nnoremap <Leader><Enter> :call ToggleFullScreen()<CR>
+nnoremap <Leader>t :call ShowMeAllTodos()<CR>
+nnoremap <Leader>a :call CopyFileContentToClipboard()<CR>
+
+function! CopyFileContentToClipboard()
+	let last_pos = getpos(".")
+	normal ggVG"+y
+	call setpos('.', last_pos)
+endfunction
+
+function! ShowMeAllTodos()
+	exec '!grep -r TODO .'
+endfunction
 
 function! CloseAllBuffersExceptCurrent()
 	if confirm('Are you sure you wish to clear all other buffers?', "&Yes\n&No", 1) == 1
