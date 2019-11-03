@@ -14,25 +14,33 @@
 
 " PLUGINS
 call plug#begin('~/AppData/Local/nvim/plugged')
+Plug 'andreasvc/vim-256noir'
 Plug 'cocopon/iceberg.vim'
+Plug 'fxn/vim-monochrome'
+Plug 'CreaturePhil/vim-handmade-hero'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fxn/vim-monochrome'
-Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
-Plug 'CreaturePhil/vim-handmade-hero'
 call plug#end()
 
+" STYLE
 set background=dark
-colorscheme iceberg
-let g:airline_theme='iceberg'
-set cul
+colorscheme 256_noir
+hi Number guifg=lightgray
+" let g:airline_theme='iceberg'
+" set cul
+set nocul
 hi CursorLine guifg=NONE
 hi Comment guifg=GRAY
-hi Visual guibg=BLUE guifg=WHITE
+hi Visual guibg=WHITE guifg=BLUE
 hi TODO guifg=RED guibg=NONE
 hi Note guifg=GREEN guibg=NONE
 autocmd VimEnter,WinEnter * match Note /\<NOTE\>/
+hi VertSplit guibg=black guifg=black
+set fillchars+=vert:.
+autocmd VimEnter,BufEnter * set laststatus=0
+hi TabLineFill guibg=white guifg=black
+hi TabLine guibg=black guifg=WHITE
+hi TabLineSel guibg=black guifg=WHITE
 
 " MISC
 set noswapfile
@@ -50,8 +58,6 @@ set smartcase
 set ignorecase
 
 " MAPPINGS
-inoremap jj <ESC>
-cnoremap jj <C-c> 
 nnoremap <Up> <Nop>
 nnoremap <Down> <Nop>
 nnoremap <Left> <Nop>
@@ -60,9 +66,14 @@ inoremap <Up> <Nop>
 inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
+inoremap jj <ESC>
+cnoremap jj <C-c> 
+nnoremap j gj
+nnoremap k gk
 tnoremap jj <C-\><C-n>
 nnoremap n nzz
 nnoremap N Nzz
+nnoremap <F12> :e $MYVIMRC<CR>
 
 let mapleader = "\<Space>"
 nnoremap <Leader>b :!build.bat<CR>

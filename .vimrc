@@ -1,191 +1,108 @@
-"
-"
-"
-" ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
-" ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
-" ██║   ██║██║██╔████╔██║██████╔╝██║     
-" ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║     
-"  ╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
-"   ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
-"
-"
-"
-"
-
-
-" ===================================
-" ============= PLUGINS =============
-" ===================================
-
-call plug#begin()
-Plug 'morhetz/gruvbox'
+" PLUGINS
+call plug#begin('~/AppData/Local/nvim/plugged')
+Plug 'andreasvc/vim-256noir'
+Plug 'cocopon/iceberg.vim'
+Plug 'fxn/vim-monochrome'
+Plug 'CreaturePhil/vim-handmade-hero'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
-" ===================================
-" ============= BASICS ==============
-" ===================================
+" STYLE
+set background=dark
+colorscheme 256_noir
+hi Number ctermfg=lightgray
+set nocul
+hi CursorLine ctermfg=NONE
+hi Comment ctermfg=GRAY
+hi TODO ctermfg=RED ctermbg=NONE
+hi Note ctermfg=GREEN ctermbg=NONE
+autocmd VimEnter,WinEnter * match Note /\<NOTE\>/
+hi VertSplit ctermbg=black ctermfg=black
+set fillchars+=vert:.
+autocmd VimEnter,BufEnter * set laststatus=0
+hi TabLineFill ctermbg=white ctermfg=black
+hi TabLine ctermbg=black ctermfg=WHITE
+hi TabLineSel ctermbg=black ctermfg=WHITE
 
-" disable being compatible with vi
-set nocompatible
 
-" now buffers can be switches without writing them (they are hidden and can be
-" switched back to later
+" MISC
+set noswapfile
 set hidden
-
-" use central directory so I do not polute cwd
-set directory=~/.vim/swappies
-set backupdir=~/.vim/backupfiles
-
-" specify encoding
-set encoding=utf-8
-
-" activate mouse support (nice for scrolling)
-set mouse=a
-
-" disable error bell sound
-set noerrorbells
-
-" make backspace work in insert mode
-set backspace=indent,eol,start
-
-" better searching
-set path+=**
-
-" automatically cd into the directory that the file is in
-set autochdir
-
-" automatically refresh buffer
-set autoread
-
-" display all matching files when using 'find' command + tab
-set wildmenu
-
-" better scrolling
+set path=**
 set scrolloff=4
-
-" text layouting
+set nohlsearch
 set smartindent
 set expandtab
 set autoindent
 set tabstop=4
 set softtabstop=0 noexpandtab
 set shiftwidth=4
+set smartcase
+set ignorecase
+set backspace=indent,eol,start
 
-" enable syntax highlighting when editing src files
-syntax on
-syntax enable
-
-" max textwidth before wrapping
-set textwidth=80
-
-" Turn of highlighting completely when searching
-set nohlsearch
-
-" language definitions
-set helplang=EN
-set langmenu=en_US
-let $LANG='en'
-
-" ===================================
-" ============= MAPPINGS ============
-" ===================================
-
-" split switching
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
-
-" disable arrow keys in normal mode and insert mode
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
+" MAPPINGS
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
 inoremap <Up> <Nop>
 inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
-
-" better insert leaves
 inoremap jj <ESC>
+cnoremap jj <C-c> 
+nnoremap j gj
+nnoremap k gk
+tnoremap jj <C-\><C-n>
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap <F12> :e $MYVIMRC<CR>
 
-" command mode leave
-" for some reason ESC tries to execute the command first before leaving
-cnoremap jj <C-c>
+let mapleader = "\<Space>"
+nnoremap <Leader>b :!build.bat<CR>
+nnoremap <Leader>r :!run.bat<CR>
+nnoremap <Leader>0 :new<CR>:only<CR>
+nnoremap <Leader>z :vs<CR>:new<CR>:wincmd j<CR>:q<CR>:wincmd l<CR>
+nnoremap <Leader>e :e %
+nnoremap <Leader>c :call CommentOut()<CR>
+nnoremap <Leader><tab> :buffers<CR>:buffer<Space>
+nnoremap <Leader>f :find 
+nnoremap <Leader><Esc> :call CloseAllBuffersExceptCurrent()<CR>
+nnoremap <Leader><Enter> :call ToggleFullScreen()<CR>
+nnoremap <Leader>t :call ShowMeAllTodos()<CR>
+nnoremap <Leader>a :call CopyFileContentToClipboard()<CR>
 
-" ===================================
-" ============= STYLING  ============
-" ===================================
-
-" vital for making colorschemes and stuff work
-set t_Co=256
-set background=dark
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
-
-" air-line
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-
-" visual select highlighting
-hi Visual ctermfg=18 ctermbg=white
-" Popupmenu for autocompletion ( C - n in insert mode )
-hi Pmenu ctermbg=black ctermfg=white
-hi PmenuSel ctermbg=gray
-
-" style vertical separator
-hi VertSplit ctermbg=black ctermfg=black
-set fillchars+=vert:.
-
-" highlight the current
-hi CursorLine cterm=NONE ctermbg=236
-set cul 
-
-" ===================================
-" ============= CUSTOM ==============
-" ===================================
-
-function! ShowByteCodeOfJavaFileInNewVerticalSplit()
-	execute ':vnew bytecodetmp | 0read ! javap -p %'
-	execute 'redraw!'
+function! CopyFileContentToClipboard()
+	let last_pos = getpos(".")
+	normal ggVG"+y
+	call setpos('.', last_pos)
 endfunction
 
-function! MavenBuild()
-	execute '!mvn clean install'
+function! ShowMeAllTodos()
+	exec '!grep -r TODO .'
 endfunction
 
-function! CompileJavaFile()
-	execute '!javac %'
+function! CloseAllBuffersExceptCurrent()
+	if confirm('Are you sure you wish to clear all other buffers?', "&Yes\n&No", 1) == 1
+		:bufdo bd
+	endif
 endfunction
 
-nnoremap <leader>p :call ShowByteCodeOfJavaFileInNewVerticalSplit()<CR>
-nnoremap <leader>b :call MavenBuild()<CR>
-nnoremap <leader>c :call CompileJavaFile()<CR>
+function! CommentOut()
+	let last_pos = getpos(".")
+	normal I//
+	call setpos('.', last_pos)
+endfunction
+
+let s:fullscreen = 0
+function! ToggleFullScreen()
+	if s:fullscreen == 0
+		call GuiWindowFullScreen(1)
+		let s:fullscreen = 1
+	else
+		call GuiWindowFullScreen(0)
+		let s:fullscreen = 0
+	endif
+endfunction

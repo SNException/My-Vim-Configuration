@@ -19,7 +19,7 @@
 " GuiFont! Liberation Mono:h12
 " call GuiWindowFullScreen(1)
 
-GuiFont! Liberation Mono:h12
+GuiFont! Liberation Mono:h11
 GuiTabline 0
 GuiPopupmenu 0
 call GuiWindowMaximized(1)
