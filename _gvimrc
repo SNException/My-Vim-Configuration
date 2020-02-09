@@ -76,7 +76,7 @@ set guifont=Consolas:h13
 " set guifont=Droid_Sans_Mono:h12
 " set rulerformat=%n%M%h%m%r%=%n\ %M\ 0x%B\ \ %l,%c%V\ %P
 " set rulerformat=%M
-set laststatus=1
+set laststatus=2
 set cmdheight=1
 " NOTE(nschultz): Visual bell
 au GUIEnter * set vb t_vb= 
