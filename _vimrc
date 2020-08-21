@@ -90,20 +90,19 @@ set guicursor=n:block-Cursor-blinkon0
 set guicursor+=v:block-Cursor-blinkon0
 set guicursor+=c:block-Cursor-blinkon500
 set guicursor+=i:block-Cursor-blinkon500
-" set guicursor+=i-ci:ver30-iCursor-blinkon700
 
 set background=dark
 if has('gui_running')
-    colorscheme magma
-    set laststatus=2
+    colorscheme dark_plain
+    set laststatus=0
 else
     colorscheme hacky
     syntax off
     set laststatus=0
 endif
 
-set guifont=Consolas:h16
-set statusline=%t:\%l,%v\ %=[%M]\ [B%n]\ \|%Y\|
+set guifont=Hack:h15
+set statusline=%t:\%l,%v\ %=[%M]\ [B%n]\ \|%Y\4
 set showmode
 set noshowcmd
 set ruler
@@ -229,7 +228,7 @@ function! GlobalSearch()
         execute 'wincmd o'
     endif
     execute 'vimgrep' . '/' . s:what . '/gj' . '**/*.' . s:ext
-    vertical cw
+    cw
     wincmd =
     echon "Done searching."
 endfunction
