@@ -49,10 +49,6 @@ hi Character               gui=NONE guifg=#c1c1c1 guibg=#303030
 hi SpecialChar             gui=NONE guifg=#c1c1c1 guibg=#303030
 hi String                  gui=NONE guifg=#c1c1c1 guibg=#303030
 
-" hi Character               gui=NONE guifg=#525252 guibg=#303030
-" hi SpecialChar             gui=NONE guifg=#525252 guibg=#303030
-" hi String                  gui=NONE guifg=#525252 guibg=#303030
-
 hi Error                   gui=NONE guifg=#c1c1c1 guibg=#303030
 
 hi NonText  		       gui=NONE guifg=#c1c1c1 guibg=#303030
@@ -68,8 +64,7 @@ hi TabLine       		   gui=NONE guifg=#c1c1c1 guibg=gray
 hi TabLineSel   		   gui=NONE guifg=#c1c1c1 guibg=gray
 hi TabLineFill  		   gui=NONE guifg=#c1c1c1 guibg=gray
 
-" hi VertSplit               gui=NONE guibg=#c1c1c1 guifg=#c1c1c1
-hi VertSplit               gui=NONE guibg=#303030 guifg=#999999
+hi VertSplit               gui=NONE guibg=#424242 guifg=#424242
 
 hi WildMenu                gui=bold guifg=darkgray guibg=#c1c1c1
 
@@ -78,8 +73,8 @@ hi StatusLineNC            gui=NONE guifg=#c1c1c1    guibg=#444444
 hi StatusLineTerm          gui=NONE guifg=#c1c1c1    guibg=#555555
 hi StatusLineTermNC        gui=NONE guifg=#c1c1c1    guibg=#444444
 
-hi Pmenu      		       gui=NONE guifg=#303030   guibg=#222222
-hi PmenuSel   		       gui=NONE guifg=#303030   guibg=#c1c1c1
+hi Pmenu      		       gui=NONE guifg=#c1c1c1   guibg=#555555
+hi PmenuSel   		       gui=NONE guifg=#222222   guibg=#c1c1c1
 hi PmenuSbar 		       gui=NONE guifg=#c1c1c1 guibg=#303030
 hi PmenuThumb 		       gui=NONE guifg=#c1c1c1 guibg=#303030
 
@@ -99,12 +94,12 @@ hi DiffChange              gui=NONE guifg=#c1c1c1 guibg=#303030
 hi DiffDelete              gui=NONE guifg=#c1c1c1 guibg=#303030
 hi DiffText  		       gui=NONE guifg=#c1c1c1 guibg=#303030
 
-hi LineNr 	               gui=NONE guifg=#c1c1c1 guibg=#aaaaaa
-hi LineNrAbove             gui=NONE guifg=#c1c1c1 guibg=#aaaaaa
-hi LineNrBelow             gui=NONE guifg=#c1c1c1 guibg=#aaaaaa
-hi CursorLineNr            gui=NONE guifg=#c1c1c1 guibg=#aaaaaa
+hi LineNr 	               gui=NONE guifg=black guibg=#aaaaaa
+hi LineNrAbove             gui=NONE guifg=black guibg=#aaaaaa
+hi LineNrBelow             gui=NONE guifg=black guibg=#aaaaaa
+hi CursorLineNr            gui=NONE guifg=black guibg=#aaaaaa
 
-hi MatchParen              gui=NONE guifg=black guibg=#999999
+hi MatchParen              gui=NONE guifg=#c1c1c1 guibg=#494949
 
 hi Folded                  gui=NONE guifg=#c1c1c1 guibg=#303030
 hi FoldColumn              gui=NONE guifg=#c1c1c1 guibg=#303030
