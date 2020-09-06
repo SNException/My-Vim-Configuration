@@ -89,20 +89,14 @@ set guioptions+=!
 set guicursor=n:block-Cursor-blinkon0
 set guicursor+=v:block-Cursor-blinkon0
 set guicursor+=c:block-Cursor-blinkon500
+set guicursor+=ci:block-Cursor-blinkon500
+set guicursor+=cr:block-Cursor-blinkon500
 set guicursor+=i:block-Cursor-blinkon500
 
 set background=dark
-if has('gui_running')
-    colorscheme dark_plain
-    set laststatus=0
-else
-    colorscheme hacky
-    syntax off
-    set laststatus=0
-endif
-
-set guifont=Hack:h15
-set statusline=%t:\%l,%v\ %=[%M]\ [B%n]\ \|%Y\4
+colorscheme humble
+set guifont=Consolas:h16
+set laststatus=0
 set showmode
 set noshowcmd
 set ruler
@@ -132,6 +126,15 @@ nnoremap <Leader>o :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
 nnoremap <Leader>t :execute 'Lex ' . expand("%:p:h") <bar> :vertical resize 45<CR>
+
+cnoremap <C-A>		<Home>
+cnoremap <C-B>		<Left>
+cnoremap <C-E>		<End>
+cnoremap <C-F>		<Right>
+cnoremap <C-N>		<Down>
+cnoremap <C-P>		<Up>
+cnoremap <Esc><C-B>	<S-Left>
+cnoremap <Esc><C-F>	<S-Right>
 
 nnoremap <Leader>c :call LineComment()<CR>
 function! LineComment()
@@ -189,8 +192,21 @@ function! ExecuteShellCommand()
     endif
 endfunction
 
-nnoremap <Leader>m :call RunCmdCommandInTerminal("build", "Compilation-Buffer")<CR>
-nnoremap <Leader>r :call RunCmdCommandInTerminal("run", "Running-Buffer")<CR>
+let g:build_cmd = "build"
+let g:run_cmd   = "run"
+
+nnoremap <Leader>2 :call SetBuildCommand()<CR>
+function! SetBuildCommand()
+    let g:build_cmd = input("Enter build command: ")
+endfunction
+
+nnoremap <Leader>3 :call SetRunCommand()<CR>
+function! SetRunCommand()
+    let g:run_cmd = input("Enter run command: ")
+endfunction
+
+nnoremap <Leader>m :call RunCmdCommandInTerminal(g:build_cmd, "Project-Build-Buffer")<CR>
+nnoremap <Leader>r :call RunCmdCommandInTerminal(g:run_cmd, "Project-Build-Buffer")<CR>
 function! RunCmdCommandInTerminal(command, buffername)
     if has('win32')
         if has('terminal')
@@ -198,12 +214,8 @@ function! RunCmdCommandInTerminal(command, buffername)
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
             endif
-            if winnr('$') > 1
-                execute 'wincmd o'
-            endif
-            set termwinsize=200x
-            execute 'vert terminal cmd /c' . a:command
-            wincmd r
+            set termwinsize=16x0
+            execute 'below terminal cmd /c' . a:command
             exe "f "  a:buffername
             execute 'wincmd w'
         else
@@ -314,63 +326,3 @@ function! ToggleFullScreen()
     endif
     call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
 endfunction
-
-function! MyMenuHandler(id, result)
-    if a:result == 1
-        call CreateScratchBuffer()
-    elseif a:result == 2
-        call CountStringOccurences()
-    elseif a:result == 3
-        call GetTotalBufferCount()
-    elseif a:result == 4
-        call TrimWhiteSpaces()
-    elseif a:result == 5
-        call FixFileIndentation()
-    elseif a:result == 6
-        call EchoCurrentTime()
-    elseif a:result == 7
-        call ToggleColorColumn()
-    elseif a:result == 8
-        if has('gui_running')
-            call ToggleFullScreen()
-        else
-            echo "Only works in the GUI version of VIM!"
-        endif
-    elseif a:result == 9
-        if has('gui_running')
-            call ToggleGUIStuff()
-        else
-            echo "Only works in the GUI version of VIM!"
-        endif
-    elseif a:result == 10
-        e $MYVIMRC
-    elseif a:result == 11
-        if has('gui_running')
-            set guifont=*
-        else
-            echo "Only works in the GUI version of VIM!"
-        endif
-    elseif a:result == 12
-        !start www.google.com
-    elseif a:result == 13
-        put =strftime(\"%c\")
-    elseif a:result == 14
-        !start .
-    endif
-endfunction
-
-nnoremap <Leader>0 :call ShowMiscFunctionsPopup()<CR>
-function! ShowMiscFunctionsPopup()
-    call popup_menu(['create_scratch_buffer', 'count_string_occurences', 'get_total_buffer_count', 'trim_white_spaces', 'fix_file_indentation', 'echo_current_time', 'toggle_color_column', 'toggle_fullscreen', 'toggle_gui_stuff', 'open_vimrc', 'change_ui_font', 'open_google', 'insert_timestamp', 'open_explorer_here'], #{
-        \ callback: 'MyMenuHandler',
-        \ title: 'Miscellaneous functions',
-        \ padding: [2, 1, 1, 1],
-        \ highlight: 'MyPopupColor',
-        \ minwidth: 50,
-        \ minheight: 16,
-        \ border: [1, 1, 1, 1],
-        \ pos: 'center',
-        \ borderhighlight: ['MyBorderColor'],
-        \ })
-endfunction
-
