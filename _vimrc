@@ -52,30 +52,6 @@ let g:netrw_browse_split = 4
 set path+=**
 set wildmenu
 set wildmode=list:longest
-set wildignore+=*.swp
-set wildignore+=*.jmod
-set wildignore+=*.o
-set wildignore+=*.so
-set wildignore+=*.dll
-set wildignore+=*.jar
-set wildignore+=*.zip
-set wildignore+=*.tar
-set wildignore+=*.class
-set wildignore+=*.exe
-set wildignore+=*.png
-set wildignore+=*.jpg
-set wildignore+=*.jpeg
-set wildignore+=*.gif
-set wildignore+=*/\vendor/*
-set wildignore+=*/\.git/*
-set wildignore+=*/\jre/*
-set wildignore+=*/\jdk/*
-set wildignore+=*/\lib/*
-set wildignore+=*/\libs/*
-set wildignore+=*/\bin/*
-set wildignore+=*/\node_modules/*
-set wildignore+=*/\target/*
-set wildignore+=*/\tmp/*
 
 set guioptions-=m
 set guioptions-=T
@@ -192,21 +168,21 @@ function! ExecuteShellCommand()
     endif
 endfunction
 
-let g:build_cmd = "build"
-let g:run_cmd   = "run"
+let g:quick_cmd1   = "build"
+let g:quick_cmd2   = "run"
 
-nnoremap <Leader>2 :call SetBuildCommand()<CR>
-function! SetBuildCommand()
-    let g:build_cmd = input("Enter build command: ")
+nnoremap <Leader>1 :call SetQuickCommand1()<CR>
+function! SetQuickCommand1()
+    let g:quick_cmd1 = input("Enter your first quick command: ")
 endfunction
 
-nnoremap <Leader>3 :call SetRunCommand()<CR>
-function! SetRunCommand()
-    let g:run_cmd = input("Enter run command: ")
+nnoremap <Leader>2 :call SetQuickCommand2()<CR>
+function! SetQuickCommand2()
+    let g:quick_cmd2 = input("Enter your second quick command: ")
 endfunction
 
-nnoremap <Leader>m :call RunCmdCommandInTerminal(g:build_cmd, "Project-Build-Buffer")<CR>
-nnoremap <Leader>r :call RunCmdCommandInTerminal(g:run_cmd, "Project-Build-Buffer")<CR>
+nnoremap <Leader>m :call RunCmdCommandInTerminal(g:quick_cmd1, "Quick-Command-Buffer")<CR>
+nnoremap <Leader>r :call RunCmdCommandInTerminal(g:quick_cmd2, "Quick-Command-Buffer")<CR>
 function! RunCmdCommandInTerminal(command, buffername)
     if has('win32')
         if has('terminal')
@@ -245,7 +221,7 @@ function! GlobalSearch()
     echon "Done searching."
 endfunction
 
-nnoremap <Leader>1 :call SearchAndReplace()<CR>
+nnoremap <Leader>3 :call SearchAndReplace()<CR>
 function! SearchAndReplace()
 	let s:what = input("Replace: ")
 	if s:what == ""
