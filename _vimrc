@@ -70,7 +70,7 @@ set guicursor+=cr:block-Cursor-blinkon500
 set guicursor+=i:block-Cursor-blinkon500
 
 set background=dark
-colorscheme humble
+colorscheme gruvbox
 set guifont=Consolas:h16
 set laststatus=0
 set showmode
@@ -170,19 +170,38 @@ endfunction
 
 let g:quick_cmd1   = "build"
 let g:quick_cmd2   = "run"
+let g:quick_cmd3   = "git status"
 
 nnoremap <Leader>1 :call SetQuickCommand1()<CR>
 function! SetQuickCommand1()
-    let g:quick_cmd1 = input("Enter your first quick command: ")
+    let tmp = input("Enter your first quick command: ")
+    if tmp == ""
+        return
+    endif
+    let g:quick_cmd1 = tmp
 endfunction
 
-nnoremap <Leader>2 :call SetQuickCommand2()<CR>
+nnoremap <Leader>2 :call SetQuickCommand1()<CR>
 function! SetQuickCommand2()
-    let g:quick_cmd2 = input("Enter your second quick command: ")
+    let tmp = input("Enter your second quick command: ")
+    if tmp == ""
+        return
+    endif
+    let g:quick_cmd2 = tmp
+endfunction
+
+nnoremap <Leader>3 :call SetQuickCommand3()<CR>
+function! SetQuickCommand3()
+    let tmp = input("Enter your third quick command: ")
+    if tmp == ""
+        return
+    endif
+    let g:quick_cmd3 = tmp
 endfunction
 
 nnoremap <Leader>m :call RunCmdCommandInTerminal(g:quick_cmd1, "Quick-Command-Buffer")<CR>
 nnoremap <Leader>r :call RunCmdCommandInTerminal(g:quick_cmd2, "Quick-Command-Buffer")<CR>
+nnoremap <Leader>v :call RunCmdCommandInTerminal(g:quick_cmd3, "Quick-Command-Buffer")<CR>
 function! RunCmdCommandInTerminal(command, buffername)
     if has('win32')
         if has('terminal')
@@ -221,7 +240,7 @@ function! GlobalSearch()
     echon "Done searching."
 endfunction
 
-nnoremap <Leader>3 :call SearchAndReplace()<CR>
+nnoremap <Leader>4 :call SearchAndReplace()<CR>
 function! SearchAndReplace()
 	let s:what = input("Replace: ")
 	if s:what == ""
