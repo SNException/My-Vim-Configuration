@@ -70,9 +70,9 @@ set guicursor+=cr:block-Cursor-blinkon500
 set guicursor+=i:block-Cursor-blinkon500
 
 set background=dark
-colorscheme gruvbox
+colorscheme light
 set guifont=Consolas:h16
-set laststatus=0
+set laststatus=2
 set showmode
 set noshowcmd
 set ruler
@@ -135,7 +135,7 @@ function! LineComment()
 	call setpos('.', last_pos)
 endfunction
 
-nnoremap <Leader>g :call GotoLine()<CR>
+nnoremap <Leader>j :call GotoLine()<CR>
 function! GotoLine()
     let nr = input("Goto line: ")
     if nr == ""
@@ -212,7 +212,6 @@ function! RunCmdCommandInTerminal(command, buffername)
             set termwinsize=16x0
             execute 'below terminal cmd /c' . a:command
             exe "f "  a:buffername
-            execute 'wincmd w'
         else
             echon "Your Vim does not have the internal Terminal."
         endif
