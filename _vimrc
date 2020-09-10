@@ -68,11 +68,11 @@ set guicursor+=c:block-Cursor-blinkon500
 set guicursor+=ci:block-Cursor-blinkon500
 set guicursor+=cr:block-Cursor-blinkon500
 set guicursor+=i:block-Cursor-blinkon500
+set guicursor+=i:ver30-iCursor-blinkon500
 
-set background=dark
-colorscheme light
+colorscheme humble
 set guifont=Consolas:h16
-set laststatus=2
+set laststatus=0
 set showmode
 set noshowcmd
 set ruler
