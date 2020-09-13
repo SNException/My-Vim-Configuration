@@ -1,4 +1,4 @@
-au VimEnter * :echo "Today will be a better day!"
+au VimEnter * :echo "Everything is ridiculous if one thinks of death."
 
 if has('win32')
     au GUIEnter * simalt ~x
@@ -53,24 +53,20 @@ set path+=**
 set wildmenu
 set wildmode=list:longest
 
-set guioptions-=m
-set guioptions-=T
 set guioptions-=e
+set guioptions-=T
+set guioptions-=m
+set guioptions-=R
+set guioptions-=r
+
 set guioptions-=L
 set guioptions-=l
-set guioptions-=r
 set guioptions+=c
 set guioptions+=!
-
 set guicursor=n:block-Cursor-blinkon0
-set guicursor+=v:block-Cursor-blinkon0
-set guicursor+=c:block-Cursor-blinkon500
-set guicursor+=ci:block-Cursor-blinkon500
-set guicursor+=cr:block-Cursor-blinkon500
-set guicursor+=i:block-Cursor-blinkon500
-set guicursor+=i:ver30-iCursor-blinkon500
 
-colorscheme humble
+colorscheme gruvbox
+set background=dark
 set guifont=Consolas:h16
 set laststatus=0
 set showmode
@@ -291,32 +287,4 @@ endfunction
 command! ToggleColorColumn :call ToggleColorColumn()
 function! ToggleColorColumn()
     execute "set colorcolumn=" . (&colorcolumn == "" ? "120" : "")
-endfunction
-
-command! ToggleGUIStuff :call ToggleGUIStuff()
-let g:gui_visible = 0
-function! ToggleGUIStuff()
-    if g:gui_visible == 0
-        set guioptions+=m
-        set guioptions+=T
-        set guioptions+=e
-        set guioptions+=r
-        let g:gui_visible = 1
-    else
-        set guioptions-=m
-        set guioptions-=T
-        set guioptions-=e
-        set guioptions-=L
-        set guioptions-=l
-        set guioptions-=r
-        let g:gui_visible = 0
-    endif
-endfunction
-
-command! ToggleFullScreen :call ToggleFullScreen()
-function! ToggleFullScreen()
-    if g:gui_visible == 1
-        call ToggleGUIStuff()
-    endif
-    call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
 endfunction
