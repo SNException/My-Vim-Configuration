@@ -1,4 +1,4 @@
-au VimEnter * :echo "Everything is ridiculous if one thinks of death."
+au VimEnter * :echo "The quick brown fox jumps over the lazy dog"
 
 if has('win32')
     au GUIEnter * simalt ~x
@@ -11,8 +11,7 @@ else
 endif
 
 set nocompatible
-set scrolloff=0
-set ttyfast
+set t_Co=256
 set backspace=indent,eol,start
 set belloff=all
 set encoding=utf8
@@ -22,12 +21,10 @@ set noswapfile
 set shortmess=I
 set shortmess+=m
 set clipboard=unnamed
-set scrolljump=-50
 set history=100
 set suffixesadd+=.java
 set langmenu=en_US
 let $LANG = 'en_US'
-syntax on
 
 set smartindent
 set autoindent
@@ -65,16 +62,35 @@ set guioptions+=c
 set guioptions+=!
 set guicursor=n:block-Cursor-blinkon0
 
+syntax on
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_italic='0'
 colorscheme gruvbox
 set background=dark
-set guifont=Consolas:h16
+hi Cursor  guifg=#99dd99 guibg=#000000
+hi iCursor guifg=#99dd99 guibg=#000000
+
+set cul
+hi CursorLine guifg=NONE guibg=#282828
+autocmd InsertEnter * highlight CursorLine guifg=NONE guibg=#280000
+autocmd InsertLeave * highlight CursorLine guifg=NONE guibg=#282828
+augroup CursorLine
+    au!
+    au VimEnter * setlocal cursorline
+    au WinEnter * setlocal cursorline
+    au BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
+set guifont=Ubuntu_Mono:h18
 set laststatus=0
+set cmdheight=1
 set showmode
 set noshowcmd
 set ruler
+set rnu
 set linespace=2
 set foldcolumn=0
-set cmdheight=1
 
 hi ExtraWhitespace gui=NONE guibg=blue
 match ExtraWhitespace /\s\+$/
@@ -98,6 +114,11 @@ nnoremap <Leader>o :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
 nnoremap <Leader>t :execute 'Lex ' . expand("%:p:h") <bar> :vertical resize 45<CR>
+nnoremap <Leader>w :!
+map <Leader>0 :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
+set runtimepath+=~/fzf
+nnoremap <leader>, :FZF<CR>
 
 cnoremap <C-A>		<Home>
 cnoremap <C-B>		<Left>
@@ -107,6 +128,10 @@ cnoremap <C-N>		<Down>
 cnoremap <C-P>		<Up>
 cnoremap <Esc><C-B>	<S-Left>
 cnoremap <Esc><C-F>	<S-Right>
+
+let g:async = '0'
+let g:quick_cmd1 = 'build'
+let g:quick_cmd2 = 'run'
 
 nnoremap <Leader>c :call LineComment()<CR>
 function! LineComment()
@@ -164,59 +189,7 @@ function! ExecuteShellCommand()
     endif
 endfunction
 
-let g:quick_cmd1   = "build"
-let g:quick_cmd2   = "run"
-let g:quick_cmd3   = "git status"
-
-nnoremap <Leader>1 :call SetQuickCommand1()<CR>
-function! SetQuickCommand1()
-    let tmp = input("Enter your first quick command: ")
-    if tmp == ""
-        return
-    endif
-    let g:quick_cmd1 = tmp
-endfunction
-
-nnoremap <Leader>2 :call SetQuickCommand1()<CR>
-function! SetQuickCommand2()
-    let tmp = input("Enter your second quick command: ")
-    if tmp == ""
-        return
-    endif
-    let g:quick_cmd2 = tmp
-endfunction
-
-nnoremap <Leader>3 :call SetQuickCommand3()<CR>
-function! SetQuickCommand3()
-    let tmp = input("Enter your third quick command: ")
-    if tmp == ""
-        return
-    endif
-    let g:quick_cmd3 = tmp
-endfunction
-
-nnoremap <Leader>m :call RunCmdCommandInTerminal(g:quick_cmd1, "Quick-Command-Buffer")<CR>
-nnoremap <Leader>r :call RunCmdCommandInTerminal(g:quick_cmd2, "Quick-Command-Buffer")<CR>
-nnoremap <Leader>v :call RunCmdCommandInTerminal(g:quick_cmd3, "Quick-Command-Buffer")<CR>
-function! RunCmdCommandInTerminal(command, buffername)
-    if has('win32')
-        if has('terminal')
-            let prev_term_buf_id = bufnr(a:buffername)
-            if prev_term_buf_id != -1
-                execute 'bd! ' . prev_term_buf_id
-            endif
-            set termwinsize=16x0
-            execute 'below terminal cmd /c' . a:command
-            exe "f "  a:buffername
-        else
-            echon "Your Vim does not have the internal Terminal."
-        endif
-    else
-        echon "This functionality only works on Windows."
-    endif
-endfunction
-
-nnoremap <Leader>w :call GlobalSearch()<CR>
+nnoremap <Leader>9 :call GlobalSearch()<CR>
 function! GlobalSearch()
 	let s:what = input("Search for: ")
     if s:what == ""
