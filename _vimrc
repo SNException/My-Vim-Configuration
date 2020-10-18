@@ -10,13 +10,14 @@ else
     set titlestring=VIM
 endif
 
-set t_Co=256
 syntax on
 colorscheme desert
+set t_Co=256
 set guifont=Ubuntu_Mono:h18
 set laststatus=0
 set foldcolumn=1
 set ruler
+set rulerformat=%m%=%l:%c
 set guioptions-=e
 set guioptions-=T
 set guioptions-=m
