@@ -1,6 +1,7 @@
 au VimEnter * :echo "The quick brown fox jumps over the lazy dog"
 
 set nocompatible
+set noerrorbells
 set backspace=indent,eol,start
 set clipboard=unnamed
 
@@ -14,7 +15,7 @@ syntax on
 colorscheme desert
 hi EndofBuffer guibg=gray20
 set t_Co=256
-set guifont=Ubuntu_Mono:h20
+set guifont=Ubuntu_Mono:h18
 set laststatus=0
 set foldcolumn=1
 set guioptions-=e
@@ -149,7 +150,7 @@ function! ExecuteShellCommand()
     endif
 endfunction
 
-let g:font_size = 20
+let g:font_size = 18
 
 nnoremap <Leader>+ :call IncFontSize()<CR>
 function! IncFontSize()
