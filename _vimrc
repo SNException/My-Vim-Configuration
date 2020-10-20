@@ -5,19 +5,18 @@ set backspace=indent,eol,start
 set clipboard=unnamed
 
 if has('gui_running')
-    set titlestring=GVIM
+    set titlestring=GVim
 else
-    set titlestring=VIM
+    set titlestring=Vim
 endif
 
 syntax on
 colorscheme desert
+hi EndofBuffer guibg=gray20
 set t_Co=256
-set guifont=Ubuntu_Mono:h18
+set guifont=Ubuntu_Mono:h20
 set laststatus=0
 set foldcolumn=1
-set ruler
-set rulerformat=%m%=%l:%c
 set guioptions-=e
 set guioptions-=T
 set guioptions-=m
@@ -28,6 +27,7 @@ set guioptions-=l
 set guioptions+=c
 set guioptions+=!
 set guicursor=n:block-Cursor-blinkon0
+set guicursor+=i:block-Cursor-blinkon500
 
 set path+=**
 set wildmenu
@@ -45,7 +45,7 @@ set hlsearch
 set smartcase
 set ignorecase
 set incsearch
-set nowrapscan
+set wrapscan
 
 set hidden
 set noswapfile
@@ -61,18 +61,25 @@ let g:netrw_fastbrowse = 0
 let g:netrw_banner = 0
 let g:netrw_browse_split = 4
 
+hi ExtraWhitespace gui=NONE guibg=blue
+match ExtraWhitespace /\s\+$/
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWinLeave * call clearmatches()
+au InsertEnter * call clearmatches()
+
+let mapleader = "\<Space>"
+set timeoutlen=300
+
 inoremap jj <ESC>
 cnoremap jj <C-c>
 tnoremap jj <C-\><C-n>
 nnoremap n nzz
 nnoremap N Nzz
 
-let mapleader = "\<Space>"
-set timeoutlen=300
-
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>, :echo "Switching to buffer...?\n" <bar> :ls<CR>:buffer<Space>
-nnoremap <Leader>r :!
+nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
@@ -96,6 +103,16 @@ function! LineComment()
     else
 	    normal I// 
     endif
+	call setpos('.', last_pos)
+endfunction
+
+nnoremap <Leader>C :call InsertBlockComment()<CR>
+function! InsertBlockComment()
+    let last_pos = getpos(".")
+    normal O/**
+    normal o *
+    normal o*
+    normal o*/
 	call setpos('.', last_pos)
 endfunction
 
@@ -132,6 +149,37 @@ function! ExecuteShellCommand()
     endif
 endfunction
 
+let g:font_size = 20
+
+nnoremap <Leader>+ :call IncFontSize()<CR>
+function! IncFontSize()
+    if has('gui_running')
+        let g:font_size = g:font_size + 1
+        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+    endif
+endfunction
+
+nnoremap <Leader>- :call DecFontSize()<CR>
+function! DecFontSize()
+    if has('gui_running')
+        let g:font_size = g:font_size - 1
+        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+    endif
+endfunction
+
+nnoremap <Leader>1 :call SearchAndReplace()<CR>
+function! SearchAndReplace()
+	let s:what = input("Replace: ")
+	if s:what == ""
+		return
+	endif
+	let s:with = input("With: ")
+	if s:with == ""
+		return
+	endif
+	execute '%s/' . s:what . '/' . s:with . '/gc'
+endfunction
+
 nnoremap <Leader>2 :call GlobalSearch()<CR>
 function! GlobalSearch()
 	let s:what = input("Search for: ")
@@ -151,32 +199,12 @@ function! GlobalSearch()
     echon "Done searching."
 endfunction
 
-nnoremap <Leader>1 :call SearchAndReplace()<CR>
-function! SearchAndReplace()
-	let s:what = input("Replace: ")
-	if s:what == ""
-		return
-	endif
-	let s:with = input("With: ")
-	if s:with == ""
-		return
-	endif
-	execute '%s/' . s:what . '/' . s:with . '/gc'
-endfunction
-
-command! Time :call EchoCurrentTime()
-function! EchoCurrentTime()
+command! Time :call Time()
+function! Time()
     echo strftime("%d-%m-%Y %H:%M")
 endfunction
 
-hi ExtraWhitespace gui=NONE guibg=blue
-match ExtraWhitespace /\s\+$/
-au BufWinEnter * match ExtraWhitespace /\s\+$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-au BufWinLeave * call clearmatches()
-au InsertEnter * call clearmatches()
-
-command! Trimwhitespaces :call TrimWhiteSpaces()
+command! TrimWhiteSpaces :call TrimWhiteSpaces()
 function! TrimWhiteSpaces()
     %s/\s\+$//e
 endfunction
