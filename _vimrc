@@ -5,6 +5,10 @@ set noerrorbells
 set backspace=indent,eol,start
 set clipboard=unnamed
 
+if has('win32')
+	au GUIEnter * simalt ~x
+endif
+
 if has('gui_running')
     set titlestring=GVim
 else
@@ -238,6 +242,21 @@ function! ToggleSpellCheck()
   endif
 endfunction
 
+nnoremap <leader>4 :call SearchWithJumpWindow()<CR>
+function! SearchWithJumpWindow()
+    let regex = input("Enter regex to find in current file: ")
+    if regex == ""
+        return
+    endif
+
+    let buffer = bufnr('%')
+    let b:lines =  []
+    execute ":%g/" . regex . "/let b:lines+=[{'bufnr':" . 'buffer' . ", 'lnum':" . "line('.')" . ", 'text': escape(getline('.'),'\"')}]"
+    call setloclist(0, [], ' ', {'items' : b:lines})
+    vert lopen
+    wincmd =
+endfunction
+
 command! Time :call Time()
 function! Time()
     echo strftime("%d-%m-%Y %H:%M")
@@ -247,3 +266,4 @@ command! TrimWhiteSpaces :call TrimWhiteSpaces()
 function! TrimWhiteSpaces()
     %s/\s\+$//e
 endfunction
+
