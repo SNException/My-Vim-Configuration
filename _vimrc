@@ -89,6 +89,7 @@ nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <leader>0 :echo "Total buffers opened: '" . len(getbufinfo({'buflisted':1})) . "'"<CR>
+nnoremap <F11> :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
 nnoremap <Leader>c :call CommentOut()<CR>
 function! CommentOut()
