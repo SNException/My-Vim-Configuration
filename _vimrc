@@ -14,10 +14,11 @@ endif
 syntax on
 colorscheme desert
 hi EndofBuffer guibg=gray20
+hi VertSplit guibg=gray20
 set t_Co=256
 set guifont=Ubuntu_Mono:h18
 set laststatus=0
-set foldcolumn=1
+set foldcolumn=0
 set guioptions-=e
 set guioptions-=T
 set guioptions-=m
@@ -32,7 +33,7 @@ set guicursor+=i:block-Cursor-blinkon500
 
 set path+=**
 set wildmenu
-set wildmode=list:longest
+set wildmode=list:longest,full
 
 set encoding=utf8
 set smartindent
@@ -57,6 +58,8 @@ set shortmess+=m
 set langmenu=en_US
 let $LANG = 'en_US'
 
+let java_ignore_javadoc=1
+
 autocmd FileType netrw setl bufhidden=wipe
 let g:netrw_fastbrowse = 0
 let g:netrw_banner = 0
@@ -75,18 +78,20 @@ set timeoutlen=300
 inoremap jj <ESC>
 cnoremap jj <C-c>
 tnoremap jj <C-\><C-n>
+
 nnoremap n nzz
 nnoremap N Nzz
 
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
-nnoremap <Leader>, :echo "Switching to buffer...?\n" <bar> :ls<CR>:buffer<Space>
+nnoremap <Leader>o :echo "Switching to buffer...?\n" <bar> :ls<CR>:buffer<Space>
 nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <leader>0 :echo "Total buffers opened: '" . len(getbufinfo({'buflisted':1})) . "'"<CR>
 
-nnoremap <Leader>c :call LineComment()<CR>
-function! LineComment()
+nnoremap <Leader>c :call CommentOut()<CR>
+function! CommentOut()
     let last_pos = getpos(".")
     let current_file_type = &filetype
     if current_file_type == "python"
@@ -151,6 +156,25 @@ function! ExecuteShellCommand()
     endif
 endfunction
 
+nnoremap <Leader>m :call ToggleTerminal()<CR>
+function! ToggleTerminal()
+    if has('terminal')
+        let open_terms = term_list()
+        let id = get(open_terms, 0)
+        if id == 0
+            echon "No terminal has been opened yet"
+            return
+        endif
+        if id == bufnr('%')
+            execute 'b#'
+        else
+            execute 'buffer ' . id
+        endif
+    else
+        echon "Your Vim does not have the internal Terminal."
+    endif
+endfunction
+
 let g:font_size = 18
 
 nnoremap <Leader>+ :call IncFontSize()<CR>
@@ -199,6 +223,16 @@ function! GlobalSearch()
     cw
     wincmd =
     echon "Done searching."
+endfunction
+
+nnoremap <Leader>3 :call ToggleSpellCheck()<CR>
+function! ToggleSpellCheck()
+  setlocal spell! spelllang=en_us
+  if &spell
+    echo "Spellcheck ON"
+  else
+    echo "Spellcheck OFF"
+  endif
 endfunction
 
 command! Time :call Time()
