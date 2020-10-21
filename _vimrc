@@ -6,7 +6,7 @@ set backspace=indent,eol,start
 set clipboard=unnamed
 
 if has('win32')
-	au GUIEnter * simalt ~x
+    au GUIEnter * simalt ~x
 endif
 
 if has('gui_running')
