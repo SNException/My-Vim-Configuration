@@ -15,6 +15,8 @@ syntax on
 colorscheme desert
 hi EndofBuffer guibg=gray20
 hi VertSplit guibg=gray20
+au InsertEnter * hi Cursor guibg=#ee4444 guifg=black
+au InsertLeave * hi Cursor guibg=khaki guifg=slategray
 set t_Co=256
 set guifont=Ubuntu_Mono:h18
 set laststatus=0
@@ -29,7 +31,7 @@ set guioptions-=l
 set guioptions+=c
 set guioptions+=!
 set guicursor=n:block-Cursor-blinkon0
-set guicursor+=i:block-Cursor-blinkon500
+set guicursor+=i:block-Cursor-blinkon0
 
 set path+=**
 set wildmenu
@@ -83,7 +85,7 @@ nnoremap n nzz
 nnoremap N Nzz
 
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
-nnoremap <Leader>o :echo "Switching to buffer...?\n" <bar> :ls<CR>:buffer<Space>
+nnoremap <Leader>o :echo "Switch to buffer...?\n" <bar> :ls<CR>:buffer<Space>
 nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
 nnoremap <Leader>s /
