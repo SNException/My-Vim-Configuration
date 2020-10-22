@@ -4,38 +4,12 @@ set nocompatible
 set noerrorbells
 set backspace=indent,eol,start
 set clipboard=unnamed
-
-if has('win32')
-    au GUIEnter * simalt ~x
-endif
-
-if has('gui_running')
-    set titlestring=GVim
-else
-    set titlestring=Vim
-endif
+set titlestring=Vim
 
 syntax on
-colorscheme desert
-hi EndofBuffer guibg=gray20
-hi VertSplit guibg=gray20
-au InsertEnter * hi Cursor guibg=#ee4444 guifg=black
-au InsertLeave * hi Cursor guibg=khaki guifg=slategray
 set t_Co=256
-set guifont=Ubuntu_Mono:h18
 set laststatus=0
 set foldcolumn=0
-set guioptions-=e
-set guioptions-=T
-set guioptions-=m
-set guioptions-=R
-set guioptions-=r
-set guioptions-=L
-set guioptions-=l
-set guioptions+=c
-set guioptions+=!
-set guicursor=n:block-Cursor-blinkon0
-set guicursor+=i:block-Cursor-blinkon0
 
 set path+=**
 set wildmenu
@@ -77,6 +51,8 @@ au BufWinEnter * match ExtraWhitespace /\s\+$/
 au InsertLeave * match ExtraWhitespace /\s\+$/
 au BufWinLeave * call clearmatches()
 au InsertEnter * call clearmatches()
+au BufWinEnter quickfix call clearmatches()
+au BufWinEnter quickfix setlocal cul
 
 let mapleader = "\<Space>"
 set timeoutlen=300
@@ -88,14 +64,17 @@ tnoremap jj <C-\><C-n>
 nnoremap n nzz
 nnoremap N Nzz
 
+map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>o :echo "Switch to buffer...?\n" <bar> :ls<CR>:buffer<Space>
+nnoremap <Leader>q :call setqflist(map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), '{"bufnr": v:val}'))<bar>vert copen<bar>wincmd =<CR>
 nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <leader>0 :echo "Total buffers opened: '" . len(getbufinfo({'buflisted':1})) . "'"<CR>
-nnoremap <F11> :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
 nnoremap <Leader>c :call CommentOut()<CR>
 function! CommentOut()
@@ -186,18 +165,14 @@ let g:font_size = 18
 
 nnoremap <Leader>+ :call IncFontSize()<CR>
 function! IncFontSize()
-    if has('gui_running')
-        let g:font_size = g:font_size + 1
-        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
-    endif
+    let g:font_size = g:font_size + 1
+    execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 endfunction
 
 nnoremap <Leader>- :call DecFontSize()<CR>
 function! DecFontSize()
-    if has('gui_running')
-        let g:font_size = g:font_size - 1
-        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
-    endif
+    let g:font_size = g:font_size - 1
+    execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 endfunction
 
 nnoremap <Leader>1 :call SearchAndReplace()<CR>
@@ -232,17 +207,7 @@ function! GlobalSearch()
     echon "Done searching."
 endfunction
 
-nnoremap <Leader>3 :call ToggleSpellCheck()<CR>
-function! ToggleSpellCheck()
-  setlocal spell! spelllang=en_us
-  if &spell
-    echo "Spellcheck ON"
-  else
-    echo "Spellcheck OFF"
-  endif
-endfunction
-
-nnoremap <leader>4 :call SearchWithJumpWindow()<CR>
+nnoremap <leader>3 :call SearchWithJumpWindow()<CR>
 function! SearchWithJumpWindow()
     let regex = input("Enter regex to find in current file: ")
     if regex == ""
@@ -255,6 +220,16 @@ function! SearchWithJumpWindow()
     call setloclist(0, [], ' ', {'items' : b:lines})
     vert lopen
     wincmd =
+endfunction
+
+nnoremap <Leader>4 :call ToggleSpellCheck()<CR>
+function! ToggleSpellCheck()
+  setlocal spell! spelllang=en_us
+  if &spell
+    echo "Spellcheck ON"
+  else
+    echo "Spellcheck OFF"
+  endif
 endfunction
 
 command! Time :call Time()
