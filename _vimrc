@@ -4,9 +4,13 @@ set nocompatible
 set noerrorbells
 set backspace=indent,eol,start
 set clipboard=unnamed
+set scrolloff=2
 set titlestring=Vim
 
 syntax on
+hi QuickFixLine guibg=NONE guifg=NONE
+hi Cursor guifg=#dddddd guibg=#000000
+hi iCursor guifg=#ee4444 guibg=#000000
 set t_Co=256
 set laststatus=0
 set foldcolumn=0
@@ -33,6 +37,7 @@ set hidden
 set noswapfile
 
 set shortmess=I
+set shortmess-=S
 set shortmess+=m
 
 set langmenu=en_US
@@ -74,7 +79,6 @@ nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-nnoremap <leader>0 :echo "Total buffers opened: '" . len(getbufinfo({'buflisted':1})) . "'"<CR>
 
 nnoremap <Leader>c :call CommentOut()<CR>
 function! CommentOut()
@@ -190,7 +194,7 @@ endfunction
 
 nnoremap <Leader>2 :call GlobalSearch()<CR>
 function! GlobalSearch()
-	let s:what = input("Search for: ")
+	let s:what = input("Search in project for: ")
     if s:what == ""
         return
     endif
@@ -207,9 +211,9 @@ function! GlobalSearch()
     echon "Done searching."
 endfunction
 
-nnoremap <leader>3 :call SearchWithJumpWindow()<CR>
-function! SearchWithJumpWindow()
-    let regex = input("Enter regex to find in current file: ")
+nnoremap <leader>3 :call FileSearch()<CR>
+function! FileSearch()
+    let regex = input("Search in file for: ")
     if regex == ""
         return
     endif
@@ -242,3 +246,14 @@ function! TrimWhiteSpaces()
     %s/\s\+$//e
 endfunction
 
+command! CountStringOccurences :call CountStringOccurences()
+function! CountStringOccurences()
+    let pattern = input("Count string: ")
+    if pattern == ""
+        return
+    endif
+    execute '%s/'.pattern.'//ng'
+endfunction
+
+command! ToggleColorColumn :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")
+command! BufferCount :echo "Total buffers opened: '" . len(getbufinfo({'buflisted':1})) . "'"
