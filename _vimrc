@@ -32,6 +32,8 @@ set incsearch
 set wrapscan
 
 set hidden
+set nobackup
+set nowritebackup
 set noswapfile
 
 set shortmess=I
@@ -141,6 +143,14 @@ function! ExecuteShellCommand()
         endif
     else
         echon "This functionality only works on Windows."
+    endif
+endfunction
+
+nnoremap <Leader>k :call KillCurrentBuffer()<CR>
+function! KillCurrentBuffer()
+    let res = confirm("Kill this buffer?", "&Yes\n&No")
+    if res == 1
+        bd
     endif
 endfunction
 
@@ -255,3 +265,4 @@ endfunction
 
 command! ToggleColorColumn :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")
 command! BufferCount :echo "Total buffers opened: '" . len(getbufinfo({'buflisted':1})) . "'"
+command! FormatCode :normal gg=G

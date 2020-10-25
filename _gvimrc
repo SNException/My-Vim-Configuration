@@ -4,7 +4,6 @@ if has('win32')
     au GUIEnter * simalt ~x
 endif
 
-let g:gruvbox_italic = '0'
 let g:gruvbox_invert_selection = '0'
 colorscheme gruvbox
 
