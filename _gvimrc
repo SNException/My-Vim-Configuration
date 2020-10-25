@@ -4,12 +4,9 @@ if has('win32')
     au GUIEnter * simalt ~x
 endif
 
-colorscheme desert
-hi EndofBuffer guibg=gray20
-hi VertSplit guibg=gray20
-hi QuickFixLine guibg=NONE guifg=NONE
-au InsertEnter * hi Cursor guibg=#ee4444 guifg=black
-au InsertLeave * hi Cursor guibg=khaki guifg=slategray
+let g:gruvbox_italic = '0'
+let g:gruvbox_invert_selection = '0'
+colorscheme gruvbox
 
 set guifont=Ubuntu_Mono:h18
 set guioptions-=e
@@ -22,6 +19,5 @@ set guioptions-=l
 set guioptions+=c
 set guioptions+=!
 set guicursor=n:block-Cursor-blinkon0
-set guicursor+=i:block-Cursor-blinkon0
 
 command! FullScreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)

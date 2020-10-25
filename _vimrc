@@ -5,12 +5,10 @@ set noerrorbells
 set backspace=indent,eol,start
 set clipboard=unnamed
 set scrolloff=2
+set autoread
 set titlestring=Vim
 
 syntax on
-hi QuickFixLine guibg=NONE guifg=NONE
-hi Cursor guifg=#dddddd guibg=#000000
-hi iCursor guifg=#ee4444 guibg=#000000
 set t_Co=256
 set laststatus=0
 set foldcolumn=0
@@ -246,8 +244,8 @@ function! TrimWhiteSpaces()
     %s/\s\+$//e
 endfunction
 
-command! CountStringOccurences :call CountStringOccurences()
-function! CountStringOccurences()
+command! CountString :call CountString()
+function! CountString()
     let pattern = input("Count string: ")
     if pattern == ""
         return
