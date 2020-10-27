@@ -9,6 +9,7 @@ set autoread
 set titlestring=Vim
 
 syntax on
+colorscheme my
 set t_Co=256
 set laststatus=0
 set foldcolumn=0

@@ -4,9 +4,6 @@ if has('win32')
     au GUIEnter * simalt ~x
 endif
 
-let g:gruvbox_invert_selection = '0'
-colorscheme gruvbox
-
 set guifont=Ubuntu_Mono:h22
 set guioptions-=e
 set guioptions-=T
@@ -18,6 +15,7 @@ set guioptions-=l
 set guioptions+=c
 set guioptions+=!
 set guicursor=n:block-Cursor-blinkon0
+set guicursor+=i:block-Cursor-blinkon500
 
 let g:font_size = 22
 
