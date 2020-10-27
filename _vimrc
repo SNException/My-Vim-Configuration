@@ -79,6 +79,8 @@ nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <left> :silent bp<CR> :redraw!<CR>
+nnoremap <right> :silent bn<CR> :redraw!<CR>
 
 nnoremap <Leader>c :call CommentOut()<CR>
 function! CommentOut()
@@ -171,20 +173,6 @@ function! ToggleTerminal()
     else
         echon "Your Vim does not have the internal Terminal."
     endif
-endfunction
-
-let g:font_size = 18
-
-nnoremap <Leader>+ :call IncFontSize()<CR>
-function! IncFontSize()
-    let g:font_size = g:font_size + 1
-    execute 'set guifont=Ubuntu_Mono:h' . g:font_size
-endfunction
-
-nnoremap <Leader>- :call DecFontSize()<CR>
-function! DecFontSize()
-    let g:font_size = g:font_size - 1
-    execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 endfunction
 
 nnoremap <Leader>1 :call SearchAndReplace()<CR>
