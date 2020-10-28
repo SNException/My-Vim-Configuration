@@ -66,10 +66,10 @@ hi TabLineSel   		   gui=NONE guifg=#ffffff guibg=#202020
 hi TabLineFill  		   gui=NONE guifg=#a0a0a0 guibg=#202020
 
 " Statusline
-hi StatusLine              gui=NONE guifg=#cacaca guibg=#777777
-hi StatusLineNC            gui=NONE guifg=#cacaca guibg=#555555
-hi StatusLineTerm          gui=NONE guifg=#cacaca guibg=#777777
-hi StatusLineTermNC        gui=NONE guifg=#cacaca guibg=#555555
+hi StatusLine              gui=NONE guifg=#000000 guibg=#777777
+hi StatusLineNC            gui=NONE guifg=#000000 guibg=#555555
+hi StatusLineTerm          gui=NONE guifg=#000000 guibg=#777777
+hi StatusLineTermNC        gui=NONE guifg=#000000 guibg=#555555
 
 " Autocomplete
 hi WildMenu                gui=bold guifg=#444444 guibg=#cacaca
