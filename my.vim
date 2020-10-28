@@ -199,10 +199,10 @@ hi TabLineSel   		   cterm=NONE ctermfg=white ctermbg=darkgray
 hi TabLineFill  		   cterm=NONE ctermfg=lightgray ctermbg=darkgray
 
 " Statusline
-hi StatusLine              cterm=NONE ctermfg=gray ctermbg=gray
-hi StatusLineNC            cterm=NONE ctermfg=gray ctermbg=lightgray
-hi StatusLineTerm          cterm=NONE ctermfg=gray ctermbg=gray
-hi StatusLineTermNC        cterm=NONE ctermfg=gray ctermbg=lightgray
+hi StatusLine              cterm=NONE ctermfg=black ctermbg=gray
+hi StatusLineNC            cterm=bold ctermfg=black ctermbg=lightgray
+hi StatusLineTerm          cterm=NONE ctermfg=black ctermbg=gray
+hi StatusLineTermNC        cterm=bold ctermfg=black ctermbg=lightgray
 
 " Autocomplete
 hi WildMenu                cterm=bold ctermfg=darkgray ctermbg=gray
@@ -236,7 +236,7 @@ hi DiffText  		       cterm=NONE ctermfg=gray ctermbg=black
 
 " Misc
 hi VertSplit               cterm=NONE ctermfg=gray ctermbg=black
-hi EndOfBuffer 		       cterm=NONE ctermfg=gray ctermbg=black
+hi EndOfBuffer 		       cterm=NONE ctermfg=darkblue ctermbg=black
 hi Directory 		       cterm=NONE ctermfg=gray ctermbg=black
 hi Error                   cterm=NONE ctermfg=gray ctermbg=black
 hi NonText  		       cterm=NONE ctermfg=gray ctermbg=black
