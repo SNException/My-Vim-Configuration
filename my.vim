@@ -79,9 +79,9 @@ hi PmenuSbar 		       gui=NONE guifg=#cacaca guibg=#000000
 hi PmenuThumb 		       gui=NONE guifg=#cacaca guibg=#000000
 
 " Cursor
-hi Cursor                  gui=NONE guifg=#000000 guibg=magenta
-hi iCursor                 gui=NONE guifg=#000000 guibg=magenta
-hi lCursor                 gui=NONE guifg=#000000 guibg=magenta
+hi Cursor                  gui=NONE guifg=#000000 guibg=lightmagenta
+hi iCursor                 gui=NONE guifg=#000000 guibg=lightmagenta
+hi lCursor                 gui=NONE guifg=#000000 guibg=lightmagenta
 hi CursorLine              gui=NONE guifg=NONE    guibg=#555555
 hi CursorColumn            gui=NONE guifg=NONE    guibg=#555555
 
@@ -103,7 +103,7 @@ hi DiffText  		       gui=NONE guifg=#cacaca guibg=#000000
 
 " Misc
 hi VertSplit               gui=NONE guifg=#666666 guibg=#000000
-hi EndOfBuffer 		       gui=NONE guifg=#666666 guibg=#000000
+hi EndOfBuffer 		       gui=NONE guifg=#6666ff guibg=#000000
 hi Directory 		       gui=NONE guifg=#a1a1a1 guibg=#000000
 hi Error                   gui=NONE guifg=#cacaca guibg=#000000
 hi NonText  		       gui=NONE guifg=#cacaca guibg=#000000
