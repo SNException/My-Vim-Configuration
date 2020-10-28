@@ -14,14 +14,14 @@ hi Visual				   gui=NONE guifg=NONE    guibg=#444444
 hi VisualNOS               gui=NONE guifg=NONE    guibg=#444444
 
 " Comments
-hi Comment                 gui=NONE guifg=#00ff00 guibg=#000000
-hi SpecialComment          gui=NONE guifg=#00ff00 guibg=#000000
-hi Todo                    gui=NONE guifg=#00ff00 guibg=#000000
-hi Note                    gui=NONE guifg=#00ff00 guibg=#000000
-hi javaDocTags             gui=NONE guifg=#00ff00 guibg=#000000
-hi javaDocParam            gui=NONE guifg=#00ff00 guibg=#000000
-hi javaDocSeeTagParam      gui=NONE guifg=#00ff00 guibg=#000000
-hi javaCommentTitle        gui=NONE guifg=#00ff00 guibg=#000000
+hi Comment                 gui=NONE guifg=#aa1111 guibg=#000000
+hi SpecialComment          gui=NONE guifg=#aa1111 guibg=#000000
+hi Todo                    gui=NONE guifg=#aa1111 guibg=#000000
+hi Note                    gui=NONE guifg=#aa1111 guibg=#000000
+hi javaDocTags             gui=NONE guifg=#aa1111 guibg=#000000
+hi javaDocParam            gui=NONE guifg=#aa1111 guibg=#000000
+hi javaDocSeeTagParam      gui=NONE guifg=#aa1111 guibg=#000000
+hi javaCommentTitle        gui=NONE guifg=#aa1111 guibg=#000000
 
 " Keywords I
 hi Keyword                 gui=NONE guifg=#cacaca guibg=#000000
@@ -79,9 +79,9 @@ hi PmenuSbar 		       gui=NONE guifg=#cacaca guibg=#000000
 hi PmenuThumb 		       gui=NONE guifg=#cacaca guibg=#000000
 
 " Cursor
-hi Cursor                  gui=NONE guifg=#000000 guibg=#e9e9e9
-hi iCursor                 gui=NONE guifg=#000000 guibg=#e9e9e9
-hi lCursor                 gui=NONE guifg=#000000 guibg=#e9e9e9
+hi Cursor                  gui=NONE guifg=#000000 guibg=magenta
+hi iCursor                 gui=NONE guifg=#000000 guibg=magenta
+hi lCursor                 gui=NONE guifg=#000000 guibg=magenta
 hi CursorLine              gui=NONE guifg=NONE    guibg=#555555
 hi CursorColumn            gui=NONE guifg=NONE    guibg=#555555
 
@@ -147,14 +147,14 @@ hi Visual				   cterm=NONE ctermfg=NONE    ctermbg=lightgray
 hi VisualNOS               cterm=NONE ctermfg=NONE    ctermbg=lightgray
 
 " Comments
-hi Comment                 cterm=NONE ctermfg=green ctermbg=black
-hi SpecialComment          cterm=NONE ctermfg=green ctermbg=black
-hi Todo                    cterm=NONE ctermfg=green ctermbg=black
-hi Note                    cterm=NONE ctermfg=green ctermbg=black
-hi javaDocTags             cterm=NONE ctermfg=green ctermbg=black
-hi javaDocParam            cterm=NONE ctermfg=green ctermbg=black
-hi javaDocSeeTagParam      cterm=NONE ctermfg=green ctermbg=black
-hi javaCommentTitle        cterm=NONE ctermfg=green ctermbg=black
+hi Comment                 cterm=NONE ctermfg=darkred ctermbg=black
+hi SpecialComment          cterm=NONE ctermfg=darkred ctermbg=black
+hi Todo                    cterm=NONE ctermfg=darkred ctermbg=black
+hi Note                    cterm=NONE ctermfg=darkred ctermbg=black
+hi javaDocTags             cterm=NONE ctermfg=darkred ctermbg=black
+hi javaDocParam            cterm=NONE ctermfg=darkred ctermbg=black
+hi javaDocSeeTagParam      cterm=NONE ctermfg=darkred ctermbg=black
+hi javaCommentTitle        cterm=NONE ctermfg=darkred ctermbg=black
 
 " Keywords I
 hi Keyword                 cterm=NONE ctermfg=gray ctermbg=black
@@ -242,7 +242,7 @@ hi Error                   cterm=NONE ctermfg=gray ctermbg=black
 hi NonText  		       cterm=NONE ctermfg=gray ctermbg=black
 hi Tag                     cterm=NONE ctermfg=gray ctermbg=black
 hi Delimiter               cterm=NONE ctermfg=gray ctermbg=black
-hi MatchParen              cterm=NONE ctermfg=gray ctermbg=gray
+hi MatchParen              cterm=NONE ctermfg=gray ctermbg=darkgray
 hi ColorColumn             cterm=NONE ctermfg=gray ctermbg=gray
 
 " Other stuff
