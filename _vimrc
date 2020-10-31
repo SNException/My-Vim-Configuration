@@ -10,7 +10,7 @@ set titlestring=Vim
 
 syntax on
 set laststatus=0
-set foldcolumn=1
+set foldcolumn=0
 
 set path+=**
 set suffixesadd=.java

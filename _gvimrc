@@ -5,13 +5,14 @@ if has('win32')
 endif
 
 
-let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_dark = 'medium'
 colorscheme gruvbox
 set background=dark
-hi Cursor guifg=#11aa11 guibg=black
-hi iCursor guifg=#11aa11 guibg=black
-au InsertLeave * hi Cursor guifg=#11aa11 guibg=black
+hi Cursor guifg=#aaddaa guibg=black
+hi iCursor guifg=#aaddaa guibg=black
+au InsertLeave * hi Cursor guifg=#aaddaa guibg=black
 au InsertEnter * hi Cursor guifg=#aa1111 guibg=black
+hi VertSplit guifg=#282828 guibg=#282828
 set guifont=Ubuntu_Mono:h18
 set guioptions-=e
 set guioptions-=T
