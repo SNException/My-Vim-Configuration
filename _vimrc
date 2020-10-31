@@ -9,12 +9,11 @@ set autoread
 set titlestring=Vim
 
 syntax on
-colorscheme my
-set t_Co=256
 set laststatus=0
-set foldcolumn=0
+set foldcolumn=1
 
 set path+=**
+set suffixesadd=.java
 set wildmenu
 set wildmode=list:longest,full
 

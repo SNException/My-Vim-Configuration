@@ -4,7 +4,15 @@ if has('win32')
     au GUIEnter * simalt ~x
 endif
 
-set guifont=Ubuntu_Mono:h22
+
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
+set background=dark
+hi Cursor guifg=#11aa11 guibg=black
+hi iCursor guifg=#11aa11 guibg=black
+au InsertLeave * hi Cursor guifg=#11aa11 guibg=black
+au InsertEnter * hi Cursor guifg=#aa1111 guibg=black
+set guifont=Ubuntu_Mono:h18
 set guioptions-=e
 set guioptions-=T
 set guioptions-=m
@@ -17,7 +25,7 @@ set guioptions+=!
 set guicursor=n:block-Cursor-blinkon0
 set guicursor+=i:block-Cursor-blinkon500
 
-let g:font_size = 22
+let g:font_size = 18
 
 nnoremap <Leader>+ :call IncFontSize()<CR>
 function! IncFontSize()
@@ -31,5 +39,6 @@ function! DecFontSize()
     execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 endfunction
 
-
 command! FullScreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
+
+
