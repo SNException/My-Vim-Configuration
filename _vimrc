@@ -10,7 +10,7 @@ set titlestring=Vim
 
 syntax on
 set laststatus=0
-set foldcolumn=0
+set foldcolumn=1
 
 set path+=**
 set suffixesadd=.java
@@ -38,7 +38,8 @@ set noswapfile
 
 set shortmess=I
 set shortmess-=S
-set shortmess+=m
+set shortmess+=a
+set shortmess+=t
 
 set langmenu=en_US
 let $LANG = 'en_US'
@@ -79,8 +80,6 @@ nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-nnoremap <left> :silent bp<CR> :redraw!<CR>
-nnoremap <right> :silent bn<CR> :redraw!<CR>
 
 nnoremap <Leader>c :call CommentOut()<CR>
 function! CommentOut()
