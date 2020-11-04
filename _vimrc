@@ -77,6 +77,7 @@ nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
 nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <F12> :e $MYVIMRC<CR>
 
 nnoremap <Leader>c :call CommentOut()<CR>
 function! CommentOut()
@@ -134,6 +135,7 @@ function! ExecuteShellCommand()
                 execute 'bd! ' . prev_term_buf_id
             endif
             set termwinsize=20x
+            " @Todo: Implement this for different OS versions
             execute 'below terminal cmd /c ' . shell_cmd
             exe "f " buffer_name
         else
@@ -242,7 +244,8 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    colorscheme flattened_dark
+    colorscheme solarized
+    set background=dark
     hi SpecialChar guifg=#2aa198
 
     set guioptions-=e
@@ -259,7 +262,7 @@ if has('gui_running')
     set guicursor+=i:block-Cursor-blinkon500
 
     let g:font_name = "Ubuntu_Mono"
-    let g:font_size = 20
+    let g:font_size = 18
     execute 'set guifont=' . g:font_name . ':h' . g:font_size
 
     nnoremap <Leader>+ :call IncFontSize()<CR>
