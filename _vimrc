@@ -2,15 +2,14 @@ au VimEnter * :echo "The quick brown fox jumps over the lazy dog"
 
 set nocompatible
 set noerrorbells
+set titlestring=Vim
 set backspace=indent,eol,start
 set clipboard=unnamed
 set scrolloff=2
 set autoread
-set titlestring=Vim
-
-syntax on
 set laststatus=0
 set foldcolumn=1
+syntax on
 
 set path+=**
 set suffixesadd=.java
@@ -51,15 +50,6 @@ let g:netrw_fastbrowse = 0
 let g:netrw_banner = 0
 let g:netrw_browse_split = 4
 
-hi ExtraWhitespace gui=NONE guibg=blue
-match ExtraWhitespace /\s\+$/
-au BufWinEnter * match ExtraWhitespace /\s\+$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-au BufWinLeave * call clearmatches()
-au InsertEnter * call clearmatches()
-au BufWinEnter quickfix call clearmatches()
-au BufWinEnter quickfix setlocal cul
-
 let mapleader = "\<Space>"
 set timeoutlen=300
 
@@ -70,11 +60,18 @@ tnoremap jj <C-\><C-n>
 nnoremap n nzz
 nnoremap N Nzz
 
+nnoremap <Tab> %
+vnoremap <Tab> %
+
+nnoremap ß $
+vnoremap ß $
+
 map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
 map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>o :echo "Switch to buffer...?\n" <bar> :ls<CR>:buffer<Space>
+nnoremap <Leader>b :b#<CR>
 nnoremap <Leader>q :call setqflist(map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), '{"bufnr": v:val}'))<bar>vert copen<bar>wincmd =<CR>
 nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <Leader>w :!
@@ -170,17 +167,17 @@ function! ToggleTerminal()
             execute 'buffer ' . id
         endif
     else
-        echon "Your Vim does not have the internal Terminal."
+        echon "Your Vim does not have the internal terminal."
     endif
 endfunction
 
-nnoremap <Leader>1 :call SearchAndReplace()<CR>
-function! SearchAndReplace()
+nnoremap <Leader>1 :call QueryReplace()<CR>
+function! QueryReplace()
 	let s:what = input("Replace: ")
 	if s:what == ""
 		return
 	endif
-	let s:with = input("With: ")
+	let s:with = input("Replace " . s:what . " with: ")
 	if s:with == ""
 		return
 	endif
@@ -221,26 +218,6 @@ function! FileSearch()
     wincmd =
 endfunction
 
-nnoremap <Leader>4 :call ToggleSpellCheck()<CR>
-function! ToggleSpellCheck()
-  setlocal spell! spelllang=en_us
-  if &spell
-    echo "Spellcheck ON"
-  else
-    echo "Spellcheck OFF"
-  endif
-endfunction
-
-command! Time :call Time()
-function! Time()
-    echo strftime("%d-%m-%Y %H:%M")
-endfunction
-
-command! TrimWhiteSpaces :call TrimWhiteSpaces()
-function! TrimWhiteSpaces()
-    %s/\s\+$//e
-endfunction
-
 command! CountString :call CountString()
 function! CountString()
     let pattern = input("Count string: ")
@@ -250,6 +227,62 @@ function! CountString()
     execute '%s/'.pattern.'//ng'
 endfunction
 
+command! ToggleSpellCheck :setlocal spell! spelllang=en_us
+command! Time :echo strftime("%d-%m-%Y %H:%M")
+command! TrimWhiteSpaces :%s/\s\+$//e
 command! ToggleColorColumn :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")
 command! BufferCount :echo "Total buffers opened: '" . len(getbufinfo({'buflisted':1})) . "'"
 command! FormatCode :normal gg=G
+command! RotCode :normal ggVGg?
+
+if has('gui_running')
+    set titlestring=GVim
+
+    if has('win32')
+        au GUIEnter * simalt ~x
+    endif
+
+    colorscheme flattened_dark
+    hi SpecialChar guifg=#2aa198
+
+    set guioptions-=e
+    set guioptions-=T
+    set guioptions-=m
+    set guioptions-=R
+    set guioptions-=r
+    set guioptions-=L
+    set guioptions-=l
+    set guioptions+=c
+    set guioptions+=!
+
+    set guicursor=n:block-Cursor-blinkon0
+    set guicursor+=i:block-Cursor-blinkon500
+
+    let g:font_name = "Ubuntu_Mono"
+    let g:font_size = 20
+    execute 'set guifont=' . g:font_name . ':h' . g:font_size
+
+    nnoremap <Leader>+ :call IncFontSize()<CR>
+    function! IncFontSize()
+        let g:font_size = g:font_size + 1
+        execute 'set guifont=' . g:font_name . ':h' . g:font_size
+    endfunction
+
+    nnoremap <Leader>- :call DecFontSize()<CR>
+    function! DecFontSize()
+        let g:font_size = g:font_size - 1
+        execute 'set guifont=' . g:font_name . ':h' . g:font_size
+    endfunction
+
+    command! FullScreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
+endif
+
+hi ExtraWhitespace gui=NONE guibg=blue
+match ExtraWhitespace /\s\+$/
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWinLeave * call clearmatches()
+au InsertEnter * call clearmatches()
+au BufWinEnter quickfix call clearmatches()
+au BufWinEnter quickfix setlocal cul
+
