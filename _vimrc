@@ -8,7 +8,8 @@ set clipboard=unnamed
 set scrolloff=2
 set autoread
 set laststatus=0
-set foldcolumn=1
+set ttyfast
+set mouse=a
 syntax on
 
 set path+=**
@@ -70,7 +71,6 @@ map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
 map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
-nnoremap <Leader>o :echo "Switch to buffer...?\n" <bar> :ls<CR>:buffer<Space>
 nnoremap <Leader>b :b#<CR>
 nnoremap <Leader>q :call setqflist(map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), '{"bufnr": v:val}'))<bar>vert copen<bar>wincmd =<CR>
 nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
@@ -79,65 +79,80 @@ nnoremap <Leader>s /
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <F12> :e $MYVIMRC<CR>
 
+nnoremap <Leader>o :call SwitchBuffer()<CR>
+function! SwitchBuffer()
+    echo "Current files loaded (" . len(getbufinfo({'buflisted':1})) . "):"
+    ls
+    echo "\n"
+    let l:buf = input("Switch to buffer: ", "", "buffer")
+    if l:buf == ""
+        return
+    endif
+    echo "\n"
+    execute 'b ' . l:buf
+
+    redraw
+endfunction
+
 nnoremap <Leader>c :call CommentOut()<CR>
 function! CommentOut()
-    let last_pos = getpos(".")
-    let current_file_type = &filetype
-    if current_file_type == "python"
+    let l:last_pos = getpos(".")
+    let l:current_file_type = &filetype
+    if l:current_file_type == "python"
 	    normal I# 
-    elseif current_file_type == "ruby"
+    elseif l:current_file_type == "ruby"
 	    normal I# 
-    elseif current_file_type == "xml"
+    elseif l:current_file_type == "xml"
 	    normal I<!-- 
 	    normal A -->
-    elseif current_file_type == "vim"
+    elseif l:current_file_type == "vim"
 	    normal I" 
-    elseif current_file_type == "dosini"
+    elseif l:current_file_type == "dosini"
 	    normal I; 
-    elseif current_file_type == "dosbatch"
+    elseif l:current_file_type == "dosbatch"
 	    normal IREM 
     else
 	    normal I// 
     endif
-	call setpos('.', last_pos)
+	call setpos('.', l:last_pos)
 endfunction
 
 nnoremap <Leader>C :call InsertBlockComment()<CR>
 function! InsertBlockComment()
-    let last_pos = getpos(".")
+    let l:last_pos = getpos(".")
     normal O/**
     normal o *
     normal o*
     normal o*/
-	call setpos('.', last_pos)
+	call setpos('.', l:last_pos)
 endfunction
 
 nnoremap <Leader>j :call GotoLine()<CR>
 function! GotoLine()
-    let nr = input("Goto line: ")
-    if nr == ""
+    let l:nr = input("Goto line: ")
+    if l:nr == ""
         return
     endif
-    execute ':' . nr
+    execute ':' . l:nr
 endfunction
 
 nnoremap <Leader>e :call ExecuteShellCommand()<CR>
 function! ExecuteShellCommand()
     if has('win32')
         if has('terminal')
-            let shell_cmd = input("Run shell command: ")
-            if shell_cmd == ""
+            let l:shell_cmd = input("Run shell command: ")
+            if l:shell_cmd == ""
                 return
             endif
-            let buffer_name = "quick - command"
-            let prev_term_buf_id = bufnr(buffer_name)
-            if prev_term_buf_id != -1
-                execute 'bd! ' . prev_term_buf_id
+            let l:buffer_name = "quick - command"
+            let l:prev_term_buf_id = bufnr(l:buffer_name)
+            if l:prev_term_buf_id != -1
+                execute 'bd! ' . l:prev_term_buf_id
             endif
             set termwinsize=20x
             " @Todo: Implement this for different OS versions
-            execute 'below terminal cmd /c ' . shell_cmd
-            exe "f " buffer_name
+            execute 'below terminal cmd /c ' . l:shell_cmd
+            exe "f " l:buffer_name
         else
             echon "Your Vim does not have the internal Terminal."
         endif
@@ -148,8 +163,8 @@ endfunction
 
 nnoremap <Leader>k :call KillCurrentBuffer()<CR>
 function! KillCurrentBuffer()
-    let res = confirm("Kill this buffer?", "&Yes\n&No")
-    if res == 1
+    let l:res = confirm("Kill this buffer?", "&Yes\n&No")
+    if l:res == 1
         bd
     endif
 endfunction
@@ -157,16 +172,16 @@ endfunction
 nnoremap <Leader>m :call ToggleTerminal()<CR>
 function! ToggleTerminal()
     if has('terminal')
-        let open_terms = term_list()
-        let id = get(open_terms, 0)
-        if id == 0
+        let l:open_terms = term_list()
+        let l:id = get(l:open_terms, 0)
+        if l:id == 0
             echon "No terminal has been opened yet"
             return
         endif
-        if id == bufnr('%')
+        if l:id == bufnr('%')
             execute 'b#'
         else
-            execute 'buffer ' . id
+            execute 'buffer ' . l:id
         endif
     else
         echon "Your Vim does not have the internal terminal."
@@ -175,31 +190,31 @@ endfunction
 
 nnoremap <Leader>1 :call QueryReplace()<CR>
 function! QueryReplace()
-	let s:what = input("Replace: ")
-	if s:what == ""
+	let l:what = input("Replace: ")
+	if l:what == ""
 		return
 	endif
-	let s:with = input("Replace " . s:what . " with: ")
-	if s:with == ""
+	let l:with = input("Replace " . l:what . " with: ")
+	if l:with == ""
 		return
 	endif
-	execute '%s/' . s:what . '/' . s:with . '/gc'
+	execute '%s/' . l:what . '/' . l:with . '/gc'
 endfunction
 
 nnoremap <Leader>2 :call GlobalSearch()<CR>
 function! GlobalSearch()
-	let s:what = input("Search in project for: ")
-    if s:what == ""
+	let l:what = input("Search in project for: ")
+    if l:what == ""
         return
     endif
-    let s:ext = input("File extension to search in (type '*' for every file): ")
-    if s:ext == ""
+    let l:ext = input("File extension to search in (type '*' for every file): ")
+    if l:ext == ""
         return
     endif
     if winnr('$') > 1
         execute 'wincmd o'
     endif
-    execute 'vimgrep' . '/' . s:what . '/gj' . '**/*.' . s:ext
+    execute 'vimgrep' . '/' . l:what . '/gj' . '**/*.' . l:ext
     cw
     wincmd =
     echon "Done searching."
@@ -207,26 +222,26 @@ endfunction
 
 nnoremap <leader>3 :call FileSearch()<CR>
 function! FileSearch()
-    let regex = input("Search in file for: ")
-    if regex == ""
+    let l:regex = input("Search in file for: ")
+    if l:regex == ""
         return
     endif
 
-    let buffer = bufnr('%')
-    let b:lines =  []
-    execute ":%g/" . regex . "/let b:lines+=[{'bufnr':" . 'buffer' . ", 'lnum':" . "line('.')" . ", 'text': escape(getline('.'),'\"')}]"
-    call setloclist(0, [], ' ', {'items' : b:lines})
+    let l:buffer = bufnr('%')
+    let l:lines = []
+    execute ":%g/" . l:regex . "/let l:lines+=[{'bufnr':" . 'l:buffer' . ", 'lnum':" . "line('.')" . ", 'text': escape(getline('.'),'\"')}]"
+    call setloclist(0, [], ' ', {'items' : l:lines})
     vert lopen
     wincmd =
 endfunction
 
 command! CountString :call CountString()
 function! CountString()
-    let pattern = input("Count string: ")
-    if pattern == ""
+    let l:pattern = input("Count string: ")
+    if l:pattern == ""
         return
     endif
-    execute '%s/'.pattern.'//ng'
+    execute '%s/' . l:pattern . '//ng'
 endfunction
 
 command! ToggleSpellCheck :setlocal spell! spelllang=en_us
@@ -239,6 +254,7 @@ command! RotCode :normal ggVGg?
 
 if has('gui_running')
     set titlestring=GVim
+    set foldcolumn=1
 
     if has('win32')
         au GUIEnter * simalt ~x
