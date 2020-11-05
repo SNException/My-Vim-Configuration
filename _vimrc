@@ -67,9 +67,6 @@ vnoremap <Tab> %
 nnoremap ß $
 vnoremap ß $
 
-map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
-map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
-
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>b :b#<CR>
 nnoremap <Leader>q :call setqflist(map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), '{"bufnr": v:val}'))<bar>vert copen<bar>wincmd =<CR>
@@ -90,7 +87,6 @@ function! SwitchBuffer()
     endif
     echo "\n"
     execute 'b ' . l:buf
-
     redraw
 endfunction
 
@@ -263,6 +259,7 @@ if has('gui_running')
     colorscheme solarized
     set background=dark
     hi SpecialChar guifg=#2aa198
+    hi TODO gui=NONE guifg=#586e75
 
     set guioptions-=e
     set guioptions-=T
