@@ -10,6 +10,7 @@ set autoread
 set laststatus=0
 set ttyfast
 set mouse=a
+set hidden
 syntax on
 
 set path+=**
@@ -31,7 +32,6 @@ set ignorecase
 set incsearch
 set wrapscan
 
-set hidden
 set nobackup
 set nowritebackup
 set noswapfile
@@ -66,6 +66,14 @@ vnoremap <Tab> %
 
 nnoremap ß $
 vnoremap ß $
+
+cnoremap <C-A>		<Home>
+cnoremap <C-B>		<Left>
+cnoremap <C-D>		<Del>
+cnoremap <C-E>		<End>
+cnoremap <C-F>		<Right>
+cnoremap <C-N>		<Down>
+cnoremap <C-P>		<Up>
 
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>b :b#<CR>
@@ -146,7 +154,7 @@ function! ExecuteShellCommand()
                 execute 'bd! ' . l:prev_term_buf_id
             endif
             set termwinsize=20x
-            " @Todo: Implement this for different OS versions
+            " @TODO: Implement this for different OS versions
             execute 'below terminal cmd /c ' . l:shell_cmd
             exe "f " l:buffer_name
         else
@@ -273,6 +281,7 @@ if has('gui_running')
 
     set guicursor=n:block-Cursor-blinkon0
     set guicursor+=i:block-Cursor-blinkon500
+    set guicursor+=ci:block-Cursor-blinkon500
 
     let g:font_name = "Ubuntu_Mono"
     let g:font_size = 18
