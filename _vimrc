@@ -67,13 +67,13 @@ vnoremap <Tab> %
 nnoremap ß $
 vnoremap ß $
 
-cnoremap <C-A>		<Home>
-cnoremap <C-B>		<Left>
-cnoremap <C-D>		<Del>
-cnoremap <C-E>		<End>
-cnoremap <C-F>		<Right>
-cnoremap <C-N>		<Down>
-cnoremap <C-P>		<Up>
+cnoremap <C-A> <Home>
+cnoremap <C-B> <Left>
+cnoremap <C-D> <Del>
+cnoremap <C-E> <End>
+cnoremap <C-F> <Right>
+cnoremap <C-N> <Down>
+cnoremap <C-P> <Up>
 
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>b :b#<CR>
@@ -165,6 +165,30 @@ function! ExecuteShellCommand()
     endif
 endfunction
 
+let g:quick_cmd = "make"
+let g:quick_cmd_buffer_name = "quick_command"
+nnoremap <Leader>m :call QuickCommand()<CR>
+function! QuickCommand()
+    if has('win32')
+        if has('terminal')
+            let prev_term_buf_id = bufnr(g:quick_cmd_buffer_name)
+            if prev_term_buf_id != -1
+                execute 'bd! ' . prev_term_buf_id
+            endif
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . g:quick_cmd
+            exe 'f ' g:quick_cmd_buffer_name
+            execute 'wincmd w'
+        else
+            echon "Your Vim does not have the internal terminal."
+        endif
+    else
+        echon "This functionality only works on Windows."
+    endif
+endfunction
+
 nnoremap <Leader>k :call KillCurrentBuffer()<CR>
 function! KillCurrentBuffer()
     let l:res = confirm("Kill this buffer?", "&Yes\n&No")
@@ -173,7 +197,7 @@ function! KillCurrentBuffer()
     endif
 endfunction
 
-nnoremap <Leader>m :call ToggleTerminal()<CR>
+nnoremap <Leader>x :call ToggleTerminal()<CR>
 function! ToggleTerminal()
     if has('terminal')
         let l:open_terms = term_list()
