@@ -61,11 +61,22 @@ tnoremap jj <C-\><C-n>
 nnoremap n nzz
 nnoremap N Nzz
 
-nnoremap <Tab> %
-vnoremap <Tab> %
+nnoremap gi gi<ESC>zzi
 
 nnoremap ß $
 vnoremap ß $
+nnoremap <C-h> 0
+nnoremap <C-l> $
+vnoremap <C-h> 0
+vnoremap <C-l> $
+
+nnoremap <C-j> }
+nnoremap <C-k> {
+vnoremap <C-j> }
+vnoremap <C-k> {
+
+nnoremap <Tab> %
+vnoremap <Tab> %
 
 cnoremap <C-A> <Home>
 cnoremap <C-B> <Left>
@@ -308,7 +319,7 @@ if has('gui_running')
     set guicursor+=ci:block-Cursor-blinkon500
 
     let g:font_name = "Ubuntu_Mono"
-    let g:font_size = 18
+    let g:font_size = 20
     execute 'set guifont=' . g:font_name . ':h' . g:font_size
 
     nnoremap <Leader>+ :call IncFontSize()<CR>
