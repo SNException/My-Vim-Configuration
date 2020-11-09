@@ -65,10 +65,6 @@ nnoremap gi gi<ESC>zzi
 
 nnoremap ß $
 vnoremap ß $
-nnoremap <C-h> 0
-nnoremap <C-l> $
-vnoremap <C-h> 0
-vnoremap <C-l> $
 
 nnoremap <C-j> }
 nnoremap <C-k> {
@@ -85,6 +81,17 @@ cnoremap <C-E> <End>
 cnoremap <C-F> <Right>
 cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
+
+" Love this!
+" https://stackoverflow.com/questions/39892498/center-cursor-position-after-search-in-vim
+cnoremap <silent> <expr> <enter> CenterSearch()
+function! CenterSearch()
+  let l:cmdtype = getcmdtype()
+  if l:cmdtype == '/' || l:cmdtype == '?'
+    return "\<enter>zz"
+  endif
+  return "\<enter>"
+endfunction
 
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>b :b#<CR>
