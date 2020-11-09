@@ -11,6 +11,7 @@ set laststatus=0
 set ttyfast
 set mouse=a
 set hidden
+set nocul
 syntax on
 
 set path+=**
@@ -84,10 +85,15 @@ cnoremap <C-P> <Up>
 
 " Love this!
 " https://stackoverflow.com/questions/39892498/center-cursor-position-after-search-in-vim
+" Modified it slightly by adding an 'animation' via timer_start which triggers cursor column.
 cnoremap <silent> <expr> <enter> CenterSearch()
 function! CenterSearch()
   let l:cmdtype = getcmdtype()
   if l:cmdtype == '/' || l:cmdtype == '?'
+    if &cul == 0
+        set cul
+        call timer_start(300, { tid -> execute('set nocul')}).
+    endif
     return "\<enter>zz"
   endif
   return "\<enter>"
