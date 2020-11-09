@@ -84,6 +84,41 @@ cnoremap <C-P> <Up>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <Leader>w :!
+nnoremap <Leader>s /
+
+cnoremap <silent> <expr> <enter> CenterSearch()
+function! CenterSearch()
+  let l:cmdtype = getcmdtype()
+  if l:cmdtype == '/' || l:cmdtype == '?'
+    return "\<enter>zz"
+  endif
+  return "\<enter>"
+endfunction
+
+nnoremap <Leader>c :call CommentOut()<CR>
+function! CommentOut()
+    let l:last_pos = getpos(".")
+    let l:current_file_type = &filetype
+    if l:current_file_type == "python"
+	    normal I# 
+    elseif l:current_file_type == "ruby"
+	    normal I# 
+    elseif l:current_file_type == "xml"
+	    normal I<!-- 
+	    normal A -->
+    elseif l:current_file_type == "vim"
+	    normal I" 
+    elseif l:current_file_type == "dosini"
+	    normal I; 
+    elseif l:current_file_type == "dosbatch"
+	    normal IREM 
+    else
+	    normal I// 
+    endif
+	call setpos('.', l:last_pos)
+endfunction
+
 
 nnoremap <Leader>o :call SwitchBuffer()<CR>
 function! SwitchBuffer()
@@ -98,6 +133,21 @@ function! SwitchBuffer()
     execute 'b ' . l:buf
     redraw
 endfunction
+
+nnoremap <Leader>1 :call QueryReplace()<CR>
+function! QueryReplace()
+	let l:what = input("Replace: ")
+	if l:what == ""
+		return
+	endif
+	let l:with = input("Replace " . l:what . " with: ")
+	if l:with == ""
+		return
+	endif
+	execute '%s/' . l:what . '/' . l:with . '/gc'
+endfunction
+
+command! TrimWhiteSpaces :%s/\s\+$//e
 
 if has('gui_running')
     set foldcolumn=1
