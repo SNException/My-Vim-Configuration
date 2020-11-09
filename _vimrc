@@ -92,7 +92,7 @@ function! CenterSearch()
   if l:cmdtype == '/' || l:cmdtype == '?'
     if &cul == 0
         set cul
-        call timer_start(300, { tid -> execute('set nocul')}).
+        call timer_start(300, { tid -> execute('set nocul')})
     endif
     return "\<enter>zz"
   endif
