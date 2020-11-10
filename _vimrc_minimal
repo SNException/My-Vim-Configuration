@@ -84,7 +84,6 @@ cnoremap <C-P> <Up>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-nnoremap <Leader>w :!
 nnoremap <Leader>s /
 
 cnoremap <silent> <expr> <enter> CenterSearch()
@@ -96,33 +95,9 @@ function! CenterSearch()
   return "\<enter>"
 endfunction
 
-nnoremap <Leader>c :call CommentOut()<CR>
-function! CommentOut()
-    let l:last_pos = getpos(".")
-    let l:current_file_type = &filetype
-    if l:current_file_type == "python"
-	    normal I# 
-    elseif l:current_file_type == "ruby"
-	    normal I# 
-    elseif l:current_file_type == "xml"
-	    normal I<!-- 
-	    normal A -->
-    elseif l:current_file_type == "vim"
-	    normal I" 
-    elseif l:current_file_type == "dosini"
-	    normal I; 
-    elseif l:current_file_type == "dosbatch"
-	    normal IREM 
-    else
-	    normal I// 
-    endif
-	call setpos('.', l:last_pos)
-endfunction
-
-
 nnoremap <Leader>o :call SwitchBuffer()<CR>
 function! SwitchBuffer()
-    echo "Current files loaded (" . len(getbufinfo({'buflisted':1})) . "):"
+    echo "Current buffers loaded (" . len(getbufinfo({'buflisted':1})) . "):"
     ls
     echo "\n"
     let l:buf = input("Switch to buffer: ", "", "buffer")
@@ -152,6 +127,10 @@ command! TrimWhiteSpaces :%s/\s\+$//e
 if has('gui_running')
     set foldcolumn=1
     set titlestring=GVim
+
+    if has('win32')
+	    au GUIEnter * simalt ~x
+    endif
 
     colorscheme solarized
     set background=dark
