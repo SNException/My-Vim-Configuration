@@ -70,12 +70,8 @@ nnoremap <C-k> {
 vnoremap <C-j> }
 vnoremap <C-k> {
 
-nnoremap <Tab> %
-vnoremap <Tab> %
-
 cnoremap <C-A> <Home>
 cnoremap <C-B> <Left>
-cnoremap <C-D> <Del>
 cnoremap <C-E> <End>
 cnoremap <C-F> <Right>
 cnoremap <C-N> <Down>
@@ -97,8 +93,9 @@ endfunction
 
 nnoremap <Leader>o :call SwitchBuffer()<CR>
 function! SwitchBuffer()
-    echo "Current buffers loaded (" . len(getbufinfo({'buflisted':1})) . "):"
-    ls
+    echo "\n"
+    echo "Current buffers in memory (" . len(getbufinfo()) . "):"
+    ls!
     echo "\n"
     let l:buf = input("Switch to buffer: ", "", "buffer")
     if l:buf == ""
@@ -107,6 +104,14 @@ function! SwitchBuffer()
     echo "\n"
     execute 'b ' . l:buf
     redraw
+endfunction
+
+nnoremap <Leader>k :call KillCurrentBuffer()<CR>
+function! KillCurrentBuffer()
+    let l:res = confirm("Kill this buffer?", "&Yes\n&No")
+    if l:res == 1
+        bd
+    endif
 endfunction
 
 nnoremap <Leader>1 :call QueryReplace()<CR>
