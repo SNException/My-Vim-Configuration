@@ -6,6 +6,7 @@ set clipboard=unnamed
 set scrolloff=2
 set autoread
 set laststatus=2
+set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set ttyfast
 set mouse=a
 set hidden
@@ -91,7 +92,6 @@ endfunction
 
 nnoremap <Leader>o :call SwitchBuffer()<CR>
 function! SwitchBuffer()
-    echo "\n"
     echo "Current buffers in memory (" . len(getbufinfo()) . "):"
     ls!
     echo "\n"
@@ -142,6 +142,8 @@ if has('gui_running')
     set background=dark
     hi SpecialChar guifg=#2aa198
     hi TODO gui=NONE guifg=#586e75
+    hi Comment gui=NONE
+    hi SpecialComment gui=NONE
 
     set guioptions-=e
     set guioptions-=T
