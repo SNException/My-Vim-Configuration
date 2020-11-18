@@ -138,7 +138,6 @@ if has('gui_running')
     endif
 
     colorscheme my_zenburn
-    set background=dark
 
     set guioptions-=e
     set guioptions-=T
