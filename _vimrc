@@ -10,6 +10,7 @@ set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set ttyfast
 set mouse=a
 set hidden
+set autochdir
 syntax on
 
 set path+=**
@@ -76,8 +77,6 @@ cnoremap <C-F> <Right>
 cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
 
-nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
-nnoremap <Leader>t :Lex<bar> :vertical resize 42<CR>
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
 
@@ -88,6 +87,21 @@ function! CenterSearch()
     return "\<enter>zz"
   endif
   return "\<enter>"
+endfunction
+
+nnoremap <Leader><Leader> :call LoadFile()<CR>
+function! LoadFile()
+    let l:file = input("Load file: ", "", "file")
+    if l:file == ""
+        return
+    endif
+
+    if filereadable(expand(l:file))
+        execute 'e ' . l:file
+    else
+        echo "\n"
+        echo "The file '" . l:file . "' does not exist or is a directory."
+    endif
 endfunction
 
 nnoremap <Leader>o :call SwitchBuffer()<CR>
@@ -138,6 +152,8 @@ if has('gui_running')
     endif
 
     colorscheme my_zenburn
+	au GUIEnter * hi MyEchohl guifg=cyan
+	au GUIEnter * echohl MyEchohl
 
     set guioptions-=e
     set guioptions-=T
@@ -153,8 +169,8 @@ if has('gui_running')
     set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
 
-    let g:font_name = "Lucida_Console"
-    let g:font_size = 16
+    let g:font_name = "Consolas"
+    let g:font_size = 18
     execute 'set guifont=' . g:font_name . ':h' . g:font_size
 
     nnoremap <Leader>+ :call IncFontSize()<CR>
