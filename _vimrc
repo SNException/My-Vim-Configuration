@@ -4,13 +4,12 @@ set titlestring=Vim
 set backspace=indent,eol,start
 set clipboard=unnamed
 set scrolloff=2
-set autoread
 set laststatus=2
 set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set ttyfast
 set mouse=a
 set hidden
-set autochdir
+set autoread
 syntax on
 
 set path+=**
@@ -79,30 +78,7 @@ cnoremap <C-P> <Up>
 
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
-
-cnoremap <silent> <expr> <enter> CenterSearch()
-function! CenterSearch()
-  let l:cmdtype = getcmdtype()
-  if l:cmdtype == '/' || l:cmdtype == '?'
-    return "\<enter>zz"
-  endif
-  return "\<enter>"
-endfunction
-
-nnoremap <Leader><Leader> :call LoadFile()<CR>
-function! LoadFile()
-    let l:file = input("Load file: ", "", "file")
-    if l:file == ""
-        return
-    endif
-
-    if filereadable(expand(l:file))
-        execute 'e ' . l:file
-    else
-        echo "\n"
-        echo "The file '" . l:file . "' does not exist or is a directory."
-    endif
-endfunction
+nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
 nnoremap <Leader>o :call SwitchBuffer()<CR>
 function! SwitchBuffer()
@@ -116,14 +92,6 @@ function! SwitchBuffer()
     echo "\n"
     execute 'b ' . l:buf
     redraw
-endfunction
-
-nnoremap <Leader>k :call KillCurrentBuffer()<CR>
-function! KillCurrentBuffer()
-    let l:res = confirm("Kill this buffer?", "&Yes\n&No")
-    if l:res == 1
-        bwipe
-    endif
 endfunction
 
 nnoremap <Leader>r :call QueryReplace()<CR>
@@ -152,8 +120,6 @@ if has('gui_running')
     endif
 
     colorscheme my_zenburn
-	au GUIEnter * hi MyEchohl guifg=cyan
-	au GUIEnter * echohl MyEchohl
 
     set guioptions-=e
     set guioptions-=T
@@ -170,7 +136,7 @@ if has('gui_running')
     set guicursor+=ci:block-Cursor-blinkon500
 
     let g:font_name = "Consolas"
-    let g:font_size = 18
+    let g:font_size = 16
     execute 'set guifont=' . g:font_name . ':h' . g:font_size
 
     nnoremap <Leader>+ :call IncFontSize()<CR>
