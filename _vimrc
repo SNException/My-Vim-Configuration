@@ -119,7 +119,8 @@ if has('gui_running')
 	    au GUIEnter * simalt ~x
     endif
 
-    colorscheme my_zenburn
+    " colorscheme my_zenburn
+    colorscheme jblow_old
 
     set guioptions-=e
     set guioptions-=T
