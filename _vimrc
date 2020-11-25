@@ -119,7 +119,6 @@ if has('gui_running')
 	    au GUIEnter * simalt ~x
     endif
 
-    " colorscheme my_zenburn
     colorscheme jblow_old
 
     set guioptions-=e
@@ -136,8 +135,8 @@ if has('gui_running')
     set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
 
-    let g:font_name = "Consolas"
-    let g:font_size = 16
+    let g:font_name = "Lucida_Console"
+    let g:font_size = 18
     execute 'set guifont=' . g:font_name . ':h' . g:font_size
 
     nnoremap <Leader>+ :call IncFontSize()<CR>

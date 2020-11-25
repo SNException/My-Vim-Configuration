@@ -16,36 +16,36 @@ hi Visual				   gui=NONE guifg=NONE    guibg=#1111ff
 hi VisualNOS               gui=NONE guifg=NONE    guibg=#1111ff
 
 " Comments
-hi Comment                 gui=NONE guifg=yellow guibg=#2a282a
-hi SpecialComment          gui=NONE guifg=yellow guibg=#2a282a
-hi Todo                    gui=NONE guifg=yellow guibg=#2a282a
-hi Note                    gui=NONE guifg=yellow guibg=#2a282a
-hi javaDocTags             gui=NONE guifg=yellow guibg=#2a282a
-hi javaDocParam            gui=NONE guifg=yellow guibg=#2a282a
-hi javaDocSeeTagParam      gui=NONE guifg=yellow guibg=#2a282a
-hi javaCommentTitle        gui=NONE guifg=yellow guibg=#2a282a
+hi Comment                 gui=NONE guifg=#eeee00 guibg=#2a282a
+hi SpecialComment          gui=NONE guifg=#eeee00 guibg=#2a282a
+hi Todo                    gui=NONE guifg=#eeee00 guibg=#2a282a
+hi Note                    gui=NONE guifg=#eeee00 guibg=#2a282a
+hi javaDocTags             gui=NONE guifg=#eeee00 guibg=#2a282a
+hi javaDocParam            gui=NONE guifg=#eeee00 guibg=#2a282a
+hi javaDocSeeTagParam      gui=NONE guifg=#eeee00 guibg=#2a282a
+hi javaCommentTitle        gui=NONE guifg=#eeee00 guibg=#2a282a
 
 " Keywords I
-hi Keyword                 gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Statement               gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Conditional             gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Repeat                  gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Exception               gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Operator                gui=NONE guifg=#f4fffa guibg=#2a282a
+hi Keyword                 gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Statement               gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Conditional             gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Repeat                  gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Exception               gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Operator                gui=NONE guifg=#d2ddd9 guibg=#2a282a
 hi Include                 gui=NONE guifg=#89e2a1 guibg=#2a282a
 
 " Keywords II
 hi Define                  gui=NONE guifg=#89e2a1 guibg=#2a282a
-hi Label                   gui=NONE guifg=#b6a997 guibg=#2a282a
+hi Label                   gui=NONE guifg=#d2ddd9 guibg=#2a282a
 hi Identifier              gui=NONE guifg=#b6a997 guibg=#2a282a
-hi Special                 gui=NONE guifg=#f4fffa guibg=#2a282a
-hi PreProc                 gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Function                gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Macro                   gui=NONE guifg=#f4fffa guibg=#2a282a
-hi PreCondit               gui=NONE guifg=#f4fffa guibg=#2a282a
-hi StorageClass            gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Structure               gui=NONE guifg=#f4fffa guibg=#2a282a
-hi Typedef                 gui=NONE guifg=#f4fffa guibg=#2a282a
+hi Special                 gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi PreProc                 gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Function                gui=NONE guifg=#7ad7cf guibg=#2a282a
+hi Macro                   gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi PreCondit               gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi StorageClass            gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Structure               gui=NONE guifg=#d2ddd9 guibg=#2a282a
+hi Typedef                 gui=NONE guifg=#d2ddd9 guibg=#2a282a
 
 " Literals/Types
 hi String                  gui=NONE guifg=gray guibg=#2a282a
@@ -87,8 +87,8 @@ hi CursorLine              gui=NONE guifg=NONE    guibg=#555555
 hi CursorColumn            gui=NONE guifg=NONE    guibg=#555555
 
 " Searching
-hi Search 		           gui=NONE guifg=#ffffff guibg=#aa4444
-hi IncSearch 		       gui=NONE guifg=#2a282a guibg=#aa4444
+hi Search 		           gui=NONE guifg=#2a282a guibg=#bb4444
+hi IncSearch 		       gui=bold guifg=#2a282a guibg=#bb4444
 
 " Line number
 hi LineNr 	               gui=NONE guifg=#707070 guibg=#2a282a
