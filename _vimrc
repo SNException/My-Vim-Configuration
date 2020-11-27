@@ -82,8 +82,8 @@ nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
 nnoremap <Leader>o :call SwitchBuffer()<CR>
 function! SwitchBuffer()
-    echo "Current buffers in memory (" . len(getbufinfo()) . "):"
-    ls!
+    echo "Current listed buffers (" . len(getbufinfo({'buflisted':1})). "):"
+    ls
     echo "\n"
     let l:buf = input("Switch to buffer: ", "", "buffer")
     if l:buf == ""
@@ -114,12 +114,13 @@ command! Time :echo strftime("%d-%m-%Y %H:%M")
 
 if has('gui_running')
     set titlestring=GVim
+    set foldcolumn=1
 
     if has('win32')
 	    au GUIEnter * simalt ~x
     endif
 
-    colorscheme jblow_old
+    colorscheme my
 
     set guioptions-=e
     set guioptions-=T
@@ -135,8 +136,8 @@ if has('gui_running')
     set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
 
-    let g:font_name = "Lucida_Console"
-    let g:font_size = 18
+    let g:font_name = "Consolas"
+    let g:font_size = 16
     execute 'set guifont=' . g:font_name . ':h' . g:font_size
 
     nnoremap <Leader>+ :call IncFontSize()<CR>
