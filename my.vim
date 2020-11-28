@@ -47,13 +47,13 @@ hi Structure               gui=NONE guifg=#ff7070 guibg=#303841
 hi Typedef                 gui=NONE guifg=#ff7070 guibg=#303841
 
 " Literals/Types
-hi Number                  gui=NONE guifg=#cecebe guibg=#303841
+hi Number                  gui=NONE guifg=#ffcccc guibg=#303841
 hi String                  gui=NONE guifg=#aaaaaa guibg=#303841
 hi Character               gui=NONE guifg=#aaaaaa guibg=#303841
 hi SpecialChar             gui=NONE guifg=#aaaaaa guibg=#303841
-hi Type                    gui=NONE guifg=#cecebe guibg=#303841
-hi Constant                gui=NONE guifg=#cecebe guibg=#303841
-hi Boolean                 gui=NONE guifg=#cecebe guibg=#303841
+hi Type                    gui=NONE guifg=#ffcccc guibg=#303841
+hi Constant                gui=NONE guifg=#ffcccc guibg=#303841
+hi Boolean                 gui=NONE guifg=#ffcccc guibg=#303841
 
 " Messages
 hi WarningMsg              gui=NONE guifg=#cecebe guibg=#303841
@@ -104,7 +104,7 @@ hi DiffText  		       gui=NONE guifg=#cecebe guibg=#303841
 
 " Misc
 hi VertSplit               gui=NONE guifg=#666666 guibg=#666666
-hi EndOfBuffer 		       gui=NONE guifg=#6666ff guibg=#303841
+hi EndOfBuffer 		       gui=NONE guifg=#303841 guibg=#303841
 hi Directory 		       gui=NONE guifg=#a1a1a1 guibg=#303841
 hi Error                   gui=NONE guifg=#cecebe guibg=#303841
 hi NonText  		       gui=NONE guifg=#cecebe guibg=#303841
