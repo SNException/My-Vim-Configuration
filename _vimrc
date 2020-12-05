@@ -120,7 +120,7 @@ if has('gui_running')
 	    au GUIEnter * simalt ~x
     endif
 
-    colorscheme my
+    colorscheme my_desert
 
     set guioptions-=e
     set guioptions-=T
