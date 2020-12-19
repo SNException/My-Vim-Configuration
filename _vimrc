@@ -1,6 +1,6 @@
 set nocompatible
 set noerrorbells
-set titlestring=Vim
+set titlestring=VIM
 set backspace=indent,eol,start
 set clipboard=unnamed
 set scrolloff=2
@@ -10,7 +10,7 @@ set ttyfast
 set mouse=a
 set hidden
 set autoread
-syntax on
+syntax off
 
 set path+=**
 set suffixesadd=.java
@@ -80,20 +80,6 @@ nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."
 nnoremap <Leader>s /
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
-nnoremap <Leader>o :call SwitchBuffer()<CR>
-function! SwitchBuffer()
-    echo "Current listed buffers (" . len(getbufinfo({'buflisted':1})). "):"
-    ls
-    echo "\n"
-    let l:buf = input("Switch to buffer: ", "", "buffer")
-    if l:buf == ""
-        return
-    endif
-    echo "\n"
-    execute 'b ' . l:buf
-    redraw
-endfunction
-
 nnoremap <Leader>r :call QueryReplace()<CR>
 function! QueryReplace()
 	let l:what = input("Replace: ")
@@ -109,18 +95,15 @@ function! QueryReplace()
 endfunction
 
 command! TrimWhiteSpaces :%s/\s\+$//e
-command! ToggleSpellCheck :setlocal spell! spelllang=en_us
-command! Time :echo strftime("%d-%m-%Y %H:%M")
 
 if has('gui_running')
-    set titlestring=GVim
+    syntax on
+    set titlestring=GVIM
     set foldcolumn=1
 
-    if has('win32')
-	    au GUIEnter * simalt ~x
-    endif
-
-    colorscheme my_desert
+    set guifont=Consolas:h15
+    colorscheme gruvbox
+    set background=dark
 
     set guioptions-=e
     set guioptions-=T
@@ -133,26 +116,7 @@ if has('gui_running')
     set guioptions+=!
 
     set guicursor=n:block-Cursor-blinkon0
-    set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
-
-    let g:font_name = "Consolas"
-    let g:font_size = 16
-    execute 'set guifont=' . g:font_name . ':h' . g:font_size
-
-    nnoremap <Leader>+ :call IncFontSize()<CR>
-    function! IncFontSize()
-        let g:font_size = g:font_size + 1
-        execute 'set guifont=' . g:font_name . ':h' . g:font_size
-    endfunction
-
-    nnoremap <Leader>- :call DecFontSize()<CR>
-    function! DecFontSize()
-        let g:font_size = g:font_size - 1
-        execute 'set guifont=' . g:font_name . ':h' . g:font_size
-    endfunction
-
-    command! FullScreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
 endif
 
 hi ExtraWhitespace gui=NONE guibg=blue
