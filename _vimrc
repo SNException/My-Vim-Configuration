@@ -105,7 +105,7 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    set guifont=Droid_Sans_Mono:h15
+    set guifont=Liberation_Mono:h15
     colorscheme torte
     set background=dark
 
