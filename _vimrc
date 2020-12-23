@@ -3,7 +3,8 @@ set noerrorbells
 set titlestring=VIM
 set backspace=indent,eol,start
 set clipboard=unnamed
-set scrolloff=2
+set scrolloff=0
+set scrolljump=-50
 set ruler
 set laststatus=2
 set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
