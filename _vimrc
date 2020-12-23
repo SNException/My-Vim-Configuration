@@ -4,13 +4,13 @@ set titlestring=VIM
 set backspace=indent,eol,start
 set clipboard=unnamed
 set scrolloff=2
+set ruler
 set laststatus=2
 set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-set ttyfast
 set mouse=a
 set hidden
 set autoread
-syntax off
+syntax on
 
 set path+=**
 set suffixesadd=.java
@@ -99,10 +99,14 @@ command! TrimWhiteSpaces :%s/\s\+$//e
 if has('gui_running')
     syntax on
     set titlestring=GVIM
-    set foldcolumn=1
+    set foldcolumn=0
 
-    set guifont=Consolas:h15
-    colorscheme gruvbox
+    if has('win32')
+        au GUIEnter * simalt ~x
+    endif
+
+    set guifont=Droid_Sans_Mono:h15
+    colorscheme torte
     set background=dark
 
     set guioptions-=e
@@ -116,6 +120,7 @@ if has('gui_running')
     set guioptions+=!
 
     set guicursor=n:block-Cursor-blinkon0
+    set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
 endif
 
@@ -127,4 +132,3 @@ au BufWinLeave * call clearmatches()
 au InsertEnter * call clearmatches()
 au BufWinEnter quickfix call clearmatches()
 au BufWinEnter quickfix setlocal cul
-
