@@ -3,8 +3,7 @@ set noerrorbells
 set titlestring=VIM
 set backspace=indent,eol,start
 set clipboard=unnamed
-set scrolloff=0
-set scrolljump=-50
+set scrolloff=2
 set ruler
 set laststatus=2
 set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
@@ -77,6 +76,9 @@ cnoremap <C-F> <Right>
 cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
 
+map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
+
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
@@ -143,8 +145,9 @@ if has('gui_running')
     set guioptions+=!
 
     set guicursor=n:block-Cursor-blinkon0
-    set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
+
+    map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 endif
 
 hi ExtraWhitespace gui=NONE guibg=blue
