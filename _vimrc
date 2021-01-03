@@ -147,6 +147,7 @@ if has('gui_running')
     set guicursor=n:block-Cursor-blinkon0
     set guicursor+=ci:block-Cursor-blinkon500
 
+    command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 endif
 
@@ -158,3 +159,12 @@ au BufWinLeave * call clearmatches()
 au InsertEnter * call clearmatches()
 au BufWinEnter quickfix call clearmatches()
 au BufWinEnter quickfix setlocal cul
+
+set cul
+augroup CursorLine
+    au!
+    au VimEnter * setlocal cursorline
+    au WinEnter * setlocal cursorline
+    au BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
