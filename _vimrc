@@ -95,19 +95,41 @@ function! QueryReplace()
 	execute '%s/' . l:what . '/' . l:with . '/gc'
 endfunction
 
+let g:quick_cmd = "java jbp"
+let g:quick_cmd_buffer_name = "quick_command"
+nnoremap <Leader>m :call QuickCommand()<CR>
+function! QuickCommand()
+    if has('win32')
+        if has('terminal')
+            let prev_term_buf_id = bufnr(g:quick_cmd_buffer_name)
+            if prev_term_buf_id != -1
+                execute 'bd! ' . prev_term_buf_id
+            endif
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . g:quick_cmd
+            exe 'f ' g:quick_cmd_buffer_name
+            execute 'wincmd w'
+        else
+            echon "Your Vim does not have the internal terminal."
+        endif
+    else
+        echon "This functionality only works on Windows."
+    endif
+endfunction
+
 command! TrimWhiteSpaces :%s/\s\+$//e
 
 if has('gui_running')
-    syntax on
     set titlestring=GVIM
-    set foldcolumn=0
 
     if has('win32')
         au GUIEnter * simalt ~x
     endif
 
     set guifont=Liberation_Mono:h15
-    colorscheme torte
+    colorscheme ayu
     set background=dark
 
     set guioptions-=e
