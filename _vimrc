@@ -10,6 +10,7 @@ set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set mouse=a
 set hidden
 set autoread
+set nowrap
 syntax on
 
 set path+=**
@@ -82,20 +83,6 @@ map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
-
-nnoremap <Leader>r :call QueryReplace()<CR>
-function! QueryReplace()
-	let l:what = input("Replace: ")
-	if l:what == ""
-		return
-	endif
-	let l:with = input("Replace " . l:what . " with: ")
-	if l:with == ""
-		return
-	endif
-    echo "\n"
-	execute '%s/' . l:what . '/' . l:with . '/gc'
-endfunction
 
 let g:quick_cmd = "java jbp"
 let g:quick_cmd_buffer_name = "quick_command"
