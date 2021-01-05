@@ -44,6 +44,7 @@ set langmenu=en_US
 let $LANG = 'en_US'
 
 let java_ignore_javadoc=1
+let g:netrw_sort_direction="reverse"
 
 autocmd FileType netrw setl bufhidden=wipe
 let g:netrw_fastbrowse = 0
@@ -82,6 +83,7 @@ map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
+nnoremap <Leader>t :Lex<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
 let g:quick_cmd = "java jbp"
