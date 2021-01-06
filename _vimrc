@@ -86,7 +86,7 @@ nnoremap <Leader>s /
 nnoremap <Leader>t :Lex<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
-let g:quick_cmd = "java jbp"
+let g:quick_cmd = "build"
 let g:quick_cmd_buffer_name = "quick_command"
 nnoremap <Leader>m :call QuickCommand()<CR>
 function! QuickCommand()
@@ -100,6 +100,30 @@ function! QuickCommand()
                 execute 'wincmd o'
             endif
             execute 'vert terminal cmd /c' . g:quick_cmd
+            exe 'f ' g:quick_cmd_buffer_name
+            execute 'wincmd w'
+        else
+            echon "Your Vim does not have the internal terminal."
+        endif
+    else
+        echon "This functionality only works on Windows."
+    endif
+endfunction
+
+let g:quick_cmd2 = "run"
+let g:quick_cmd_buffer_name2 = "quick_command"
+nnoremap <Leader>r :call QuickCommand2()<CR>
+function! QuickCommand2()
+    if has('win32')
+        if has('terminal')
+            let prev_term_buf_id = bufnr(g:quick_cmd_buffer_name2)
+            if prev_term_buf_id != -1
+                execute 'bd! ' . prev_term_buf_id
+            endif
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . g:quick_cmd2
             exe 'f ' g:quick_cmd_buffer_name
             execute 'wincmd w'
         else
@@ -139,15 +163,6 @@ if has('gui_running')
     command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 endif
-
-hi ExtraWhitespace gui=NONE guibg=blue
-match ExtraWhitespace /\s\+$/
-au BufWinEnter * match ExtraWhitespace /\s\+$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-au BufWinLeave * call clearmatches()
-au InsertEnter * call clearmatches()
-au BufWinEnter quickfix call clearmatches()
-au BufWinEnter quickfix setlocal cul
 
 set cul
 augroup CursorLine
