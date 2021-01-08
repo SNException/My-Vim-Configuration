@@ -172,3 +172,13 @@ augroup CursorLine
     au BufWinEnter * setlocal cursorline
     au WinLeave * setlocal nocursorline
 augroup END
+
+hi ExtraWhitespace gui=NONE guibg=blue
+match ExtraWhitespace /\s\+$/
+au BufWinEnter * match ExtraWhitespace /\s\+$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+au BufWinLeave * call clearmatches()
+au InsertEnter * call clearmatches()
+au BufWinEnter quickfix call clearmatches()
+au BufWinEnter quickfix setlocal cul
+
