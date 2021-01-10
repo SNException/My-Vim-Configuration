@@ -79,12 +79,8 @@ cnoremap <C-F> <Right>
 cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
 
-map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
-map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
-
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
-nnoremap <Leader>t :Lex<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
 let g:quick_cmd = "build"
