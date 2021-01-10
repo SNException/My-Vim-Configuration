@@ -5,12 +5,13 @@ set backspace=indent,eol,start
 set clipboard=unnamed
 set scrolloff=2
 set ruler
-set laststatus=2
+set laststatus=0
 set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set mouse=a
 set hidden
 set autoread
 set nowrap
+set nocul
 syntax on
 
 set path+=**
@@ -143,8 +144,8 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    set guifont=Liberation_Mono:h15
-    colorscheme ayu
+    set guifont=Ubuntu_Mono:h18
+    colorscheme desert
     set background=dark
 
     set guioptions-=e
@@ -163,15 +164,6 @@ if has('gui_running')
     command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 endif
-
-set cul
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
 
 hi ExtraWhitespace gui=NONE guibg=blue
 match ExtraWhitespace /\s\+$/
