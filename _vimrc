@@ -43,6 +43,8 @@ set shortmess+=t
 
 set langmenu=en_US
 let $LANG = 'en_US'
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 let java_ignore_javadoc=1
 let g:netrw_sort_direction="reverse"
@@ -141,8 +143,7 @@ if has('gui_running')
     endif
 
     set guifont=Ubuntu_Mono:h18
-    colorscheme desert
-    set background=dark
+    colorscheme plain
 
     set guioptions-=e
     set guioptions-=T
@@ -155,6 +156,7 @@ if has('gui_running')
     set guioptions+=!
 
     set guicursor=n:block-Cursor-blinkon0
+    set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
 
     command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
