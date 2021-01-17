@@ -109,7 +109,7 @@ hi Error                   gui=NONE guifg=#010101 guibg=#fefefe
 hi NonText  		       gui=NONE guifg=#010101 guibg=#fefefe
 hi Tag                     gui=NONE guifg=#010101 guibg=#fefefe
 hi Delimiter               gui=NONE guifg=#010101 guibg=#fefefe
-hi MatchParen              gui=NONE guifg=#010101 guibg=#707070
+hi MatchParen              gui=NONE guifg=#111111 guibg=#cccccc
 hi ColorColumn             gui=NONE guifg=#010101 guibg=#ff0000
 
 " Other stuff
