@@ -143,7 +143,7 @@ if has('gui_running')
     endif
 
     set guifont=Ubuntu_Mono:h18
-    colorscheme plain
+    colorscheme iceberg
 
     set guioptions-=e
     set guioptions-=T
@@ -156,6 +156,7 @@ if has('gui_running')
     set guioptions+=!
 
     set guicursor=n:block-Cursor-blinkon0
+    set guicursor+=i:block-Cursor-blinkon500
     set guicursor+=ci:block-Cursor-blinkon500
 
     command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
