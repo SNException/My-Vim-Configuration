@@ -5,7 +5,7 @@ set backspace=indent,eol,start
 set clipboard=unnamed
 set scrolloff=2
 set ruler
-set laststatus=0
+set laststatus=2
 set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set mouse=a
 set hidden
@@ -142,8 +142,9 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    set guifont=Ubuntu_Mono:h18
-    colorscheme iceberg
+    " set guifont=Ubuntu_Mono:h17
+    set guifont=Ubuntu_Mono:h22
+    colorscheme my_zenburn
 
     set guioptions-=e
     set guioptions-=T
