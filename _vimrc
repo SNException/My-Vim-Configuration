@@ -91,8 +91,8 @@ nnoremap <Leader>e :call ExecuteCommandAsync()<CR>
 function! ExecuteCommandAsync()
     if has('win32')
         if has('terminal')
-            let cmd = input("Enter command you wish to exeucte: ")
-            let prev_term_buf_id = bufnr('execution')
+            let cmd = input("Enter command: ")
+            let prev_term_buf_id = bufnr('Output Buffer')
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
             endif
@@ -100,7 +100,7 @@ function! ExecuteCommandAsync()
                 execute 'wincmd o'
             endif
             execute 'below terminal cmd /c' . cmd
-            exe 'f ' cmd
+            exe 'f ' . 'Output Buffer'
             execute 'wincmd w'
         else
             echon "Your Vim does not have the internal terminal."
