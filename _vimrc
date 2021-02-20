@@ -12,6 +12,7 @@ set hidden
 set autoread
 set nowrap
 set nocul
+set foldcolumn=0
 syntax on
 
 set path+=**
@@ -83,47 +84,23 @@ cnoremap <C-P> <Up>
 
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader>s /
+nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
-let g:quick_cmd = "build"
-let g:quick_cmd_buffer_name = "quick_command"
-nnoremap <Leader>m :call QuickCommand()<CR>
-function! QuickCommand()
+nnoremap <Leader>e :call ExecuteCommandAsync()<CR>
+function! ExecuteCommandAsync()
     if has('win32')
         if has('terminal')
-            let prev_term_buf_id = bufnr(g:quick_cmd_buffer_name)
+            let cmd = input("Enter command you wish to exeucte: ")
+            let prev_term_buf_id = bufnr('execution')
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
             endif
             if winnr('$') > 1
                 execute 'wincmd o'
             endif
-            execute 'vert terminal cmd /c' . g:quick_cmd
-            exe 'f ' g:quick_cmd_buffer_name
-            execute 'wincmd w'
-        else
-            echon "Your Vim does not have the internal terminal."
-        endif
-    else
-        echon "This functionality only works on Windows."
-    endif
-endfunction
-
-let g:quick_cmd2 = "run"
-let g:quick_cmd_buffer_name2 = "quick_command"
-nnoremap <Leader>r :call QuickCommand2()<CR>
-function! QuickCommand2()
-    if has('win32')
-        if has('terminal')
-            let prev_term_buf_id = bufnr(g:quick_cmd_buffer_name2)
-            if prev_term_buf_id != -1
-                execute 'bd! ' . prev_term_buf_id
-            endif
-            if winnr('$') > 1
-                execute 'wincmd o'
-            endif
-            execute 'vert terminal cmd /c' . g:quick_cmd2
-            exe 'f ' g:quick_cmd_buffer_name
+            execute 'below terminal cmd /c' . cmd
+            exe 'f ' cmd
             execute 'wincmd w'
         else
             echon "Your Vim does not have the internal terminal."
@@ -142,8 +119,7 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    " set guifont=Ubuntu_Mono:h17
-    set guifont=Ubuntu_Mono:h22
+    set guifont=Ubuntu_Mono:h18
     colorscheme my_zenburn
 
     set guioptions-=e
