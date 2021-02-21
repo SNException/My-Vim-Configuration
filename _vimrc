@@ -83,7 +83,6 @@ cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
 
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-nnoremap <Leader>s /
 nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
@@ -92,6 +91,9 @@ function! ExecuteCommandAsync()
     if has('win32')
         if has('terminal')
             let cmd = input("Enter command: ")
+            if cmd == ''
+                return
+            endif
             let prev_term_buf_id = bufnr('Output Buffer')
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
@@ -99,7 +101,7 @@ function! ExecuteCommandAsync()
             if winnr('$') > 1
                 execute 'wincmd o'
             endif
-            execute 'below terminal cmd /c' . cmd
+            execute 'vert terminal cmd /c' . cmd
             exe 'f ' . 'Output Buffer'
             execute 'wincmd w'
         else
@@ -120,7 +122,7 @@ if has('gui_running')
     endif
 
     set guifont=Ubuntu_Mono:h18
-    colorscheme my_zenburn
+    colorscheme atlas
 
     set guioptions-=e
     set guioptions-=T
