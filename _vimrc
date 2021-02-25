@@ -70,6 +70,12 @@ nnoremap gi gi<ESC>zzi
 nnoremap ß $
 vnoremap ß $
 
+nnoremap 0 ^
+vnoremap 0 ^
+
+nnoremap ^ 0
+vnoremap ^ 0
+
 nnoremap <C-j> }
 nnoremap <C-k> {
 vnoremap <C-j> }
@@ -90,7 +96,7 @@ nnoremap <Leader>e :call ExecuteCommandAsync()<CR>
 function! ExecuteCommandAsync()
     if has('win32')
         if has('terminal')
-            let cmd = input("Enter command: ")
+            let cmd = input("Enter command: ", "", "shellcmd")
             if cmd == ''
                 return
             endif
@@ -103,7 +109,9 @@ function! ExecuteCommandAsync()
             endif
             execute 'vert terminal cmd /c' . cmd
             exe 'f ' . 'Output Buffer'
-            execute 'wincmd w'
+            wincmd w
+            wincmd =
+            redraw
         else
             echon "Your Vim does not have the internal terminal."
         endif
@@ -121,8 +129,11 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    set guifont=Ubuntu_Mono:h18
-    colorscheme atlas
+    " set guifont=Ubuntu_Mono:h18
+    " set guifont=Consolas:h19
+    " set guifont=Ubuntu_Mono:h21
+    set guifont=Consolas:h15
+    colorscheme my_zenburn
 
     set guioptions-=e
     set guioptions-=T
