@@ -92,6 +92,21 @@ nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."
 nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
+nnoremap <Leader>s :call SearchGlobally()<CR>
+function! SearchGlobally()
+    let what = input("Search for: ")
+    if what == ''
+        return
+    endif
+    execute 'lvimgrep /' . what . '/j **/*'
+    if winnr('$') > 1
+        execute 'wincmd o'
+    endif
+    vert lopen
+    wincmd =
+    redraw!
+endfunction
+
 nnoremap <Leader>e :call ExecuteCommandAsync()<CR>
 function! ExecuteCommandAsync()
     if has('win32')
@@ -111,7 +126,7 @@ function! ExecuteCommandAsync()
             exe 'f ' . 'Output Buffer'
             wincmd w
             wincmd =
-            redraw
+            redraw!
         else
             echon "Your Vim does not have the internal terminal."
         endif
@@ -129,11 +144,10 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    " set guifont=Ubuntu_Mono:h18
-    " set guifont=Consolas:h19
+    " colorscheme my_zenburn
     " set guifont=Ubuntu_Mono:h21
-    set guifont=Consolas:h15
-    colorscheme my_zenburn
+    set guifont=Ubuntu_Mono:h18
+    colorscheme onedark
 
     set guioptions-=e
     set guioptions-=T
@@ -161,4 +175,3 @@ au BufWinLeave * call clearmatches()
 au InsertEnter * call clearmatches()
 au BufWinEnter quickfix call clearmatches()
 au BufWinEnter quickfix setlocal cul
-
