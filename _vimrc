@@ -17,6 +17,7 @@ syntax on
 
 set path+=**
 set suffixesadd=.java
+set wildignore+=*.jar,*.zip,.git
 set wildmenu
 set wildmode=list:longest,full
 
@@ -94,15 +95,15 @@ nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
 nnoremap <Leader>s :call SearchGlobally()<CR>
 function! SearchGlobally()
-    let what = input("Search for: ")
+    let what = input("Global search: ")
     if what == ''
         return
     endif
-    execute 'lvimgrep /' . what . '/j **/*'
+    execute 'vimgrep /' . what . '/j **/*'
     if winnr('$') > 1
         execute 'wincmd o'
     endif
-    vert lopen
+    vert copen
     wincmd =
     redraw!
 endfunction
@@ -135,6 +136,31 @@ function! ExecuteCommandAsync()
     endif
 endfunction
 
+nnoremap <Leader>m :call Build()<CR>
+function! Build()
+    if has('win32')
+        if has('terminal')
+            let cmd = 'build'
+            let prev_term_buf_id = bufnr('Output Buffer')
+            if prev_term_buf_id != -1
+                execute 'bd! ' . prev_term_buf_id
+            endif
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . cmd
+            exe 'f ' . 'Output Buffer'
+            wincmd w
+            wincmd =
+            redraw!
+        else
+            echon "Your Vim does not have the internal terminal."
+        endif
+    else
+        echon "This functionality only works on Windows."
+    endif
+endfunction
+
 command! TrimWhiteSpaces :%s/\s\+$//e
 
 if has('gui_running')
@@ -144,10 +170,8 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    " colorscheme my_zenburn
-    " set guifont=Ubuntu_Mono:h21
-    set guifont=Ubuntu_Mono:h18
-    colorscheme onedark
+    set guifont=Liberation_Mono:h17
+    colorscheme gruvbox
 
     set guioptions-=e
     set guioptions-=T
