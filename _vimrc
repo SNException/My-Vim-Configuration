@@ -10,14 +10,13 @@ set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set mouse=a
 set hidden
 set autoread
-set nowrap
 set nocul
 set foldcolumn=0
 syntax on
 
 set path+=**
 set suffixesadd=.java
-set wildignore+=*.jar,*.zip,.git
+set wildignore+=*.jar,*.zip,*.class
 set wildmenu
 set wildmode=list:longest,full
 
@@ -63,6 +62,9 @@ inoremap jj <ESC>
 cnoremap jj <C-c>
 tnoremap jj <C-\><C-n>
 
+nnoremap j gj
+nnoremap k gk
+
 nnoremap n nzz
 nnoremap N Nzz
 
@@ -92,6 +94,17 @@ cnoremap <C-P> <Up>
 nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
+
+nnoremap <Leader>t :call ShowTodos()<CR>
+function! ShowTodos()
+    execute 'vimgrep /TODO(nschultz)/j **/*'
+    if winnr('$') > 1
+        execute 'wincmd o'
+    endif
+    vert copen
+    wincmd =
+    redraw!
+endfunction
 
 nnoremap <Leader>s :call SearchGlobally()<CR>
 function! SearchGlobally()
@@ -136,6 +149,30 @@ function! ExecuteCommandAsync()
     endif
 endfunction
 
+nnoremap <Leader>r :call Run()<CR>
+function! Run()
+    if has('win32')
+        if has('terminal')
+            let cmd = 'run'
+            let prev_term_buf_id = bufnr('Output Buffer')
+            if prev_term_buf_id != -1
+                execute 'bd! ' . prev_term_buf_id
+            endif
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . cmd
+            exe 'f ' . 'Output Buffer'
+            wincmd w
+            wincmd =
+        else
+            echon "Your Vim does not have the internal terminal."
+        endif
+    else
+        echon "This functionality only works on Windows."
+    endif
+endfunction
+
 nnoremap <Leader>m :call Build()<CR>
 function! Build()
     if has('win32')
@@ -152,7 +189,6 @@ function! Build()
             exe 'f ' . 'Output Buffer'
             wincmd w
             wincmd =
-            redraw!
         else
             echon "Your Vim does not have the internal terminal."
         endif
@@ -163,6 +199,8 @@ endfunction
 
 command! TrimWhiteSpaces :%s/\s\+$//e
 
+hi QuickFixLine guifg=NONE guibg=NONE
+
 if has('gui_running')
     set titlestring=GVIM
 
@@ -170,8 +208,26 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    set guifont=Liberation_Mono:h17
-    colorscheme gruvbox
+    let g:font_size = 21
+    execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+
+    map <leader>+ :call IncreaseFontSize()<CR>
+    function! IncreaseFontSize()
+        let g:font_size = g:font_size + 1
+        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+        wincmd =
+        redraw!
+    endfunction
+
+    map <leader>- :call DecreaseFontSize()<CR>
+    function! DecreaseFontSize()
+        let g:font_size = g:font_size - 1
+        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+        wincmd =
+        redraw!
+    endfunction
+
+    colorscheme my_zenburn
 
     set guioptions-=e
     set guioptions-=T
@@ -189,6 +245,7 @@ if has('gui_running')
 
     command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
 endif
 
 hi ExtraWhitespace gui=NONE guibg=blue
