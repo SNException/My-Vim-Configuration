@@ -95,6 +95,8 @@ nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."
 nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
+map <F12> :e $MYVIMRC<CR>
+
 nnoremap <Leader>t :call ShowTodos()<CR>
 function! ShowTodos()
     execute 'vimgrep /TODO(nschultz)/j **/*'
