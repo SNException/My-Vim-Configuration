@@ -213,6 +213,14 @@ if has('gui_running')
     let g:font_size = 21
     execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 
+    map <M-n> :call ResetFontSize()<CR>
+    function! ResetFontSize()
+        let g:font_size = 21
+        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+        wincmd =
+        redraw!
+    endfunction
+
     map <M-+> :call IncreaseFontSize()<CR>
     function! IncreaseFontSize()
         if g:font_size == 72
