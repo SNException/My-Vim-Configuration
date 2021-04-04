@@ -211,16 +211,22 @@ if has('gui_running')
     let g:font_size = 21
     execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 
-    map <leader>+ :call IncreaseFontSize()<CR>
+    map <M-+> :call IncreaseFontSize()<CR>
     function! IncreaseFontSize()
+        if g:font_size == 72
+            return
+        endif
         let g:font_size = g:font_size + 1
         execute 'set guifont=Ubuntu_Mono:h' . g:font_size
         wincmd =
         redraw!
     endfunction
 
-    map <leader>- :call DecreaseFontSize()<CR>
+    map <M--> :call DecreaseFontSize()<CR>
     function! DecreaseFontSize()
+        if g:font_size == 1
+            return
+        endif
         let g:font_size = g:font_size - 1
         execute 'set guifont=Ubuntu_Mono:h' . g:font_size
         wincmd =
@@ -245,7 +251,6 @@ if has('gui_running')
 
     command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
-
 endif
 
 hi ExtraWhitespace gui=NONE guibg=blue
