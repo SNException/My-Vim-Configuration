@@ -201,6 +201,9 @@ endfunction
 
 command! TrimWhiteSpaces :%s/\s\+$//e
 
+map <M-S> :mksession! ~/vimsessions/previous.vim<CR>
+map <M-L> :source ~/vimsessions/previous.vim<CR>
+
 hi QuickFixLine guifg=NONE guibg=NONE
 
 if has('gui_running')
@@ -213,7 +216,7 @@ if has('gui_running')
     let g:font_size = 21
     execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 
-    map <M-n> :call ResetFontSize()<CR>
+    map <M-=> :call ResetFontSize()<CR>
     function! ResetFontSize()
         let g:font_size = 21
         execute 'set guifont=Ubuntu_Mono:h' . g:font_size
