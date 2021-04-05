@@ -95,6 +95,9 @@ nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."
 nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
+map <M-S> :mksession! ~/vimsessions/previous.vim<CR>
+map <M-L> :source ~/vimsessions/previous.vim<CR>
+
 map <F12> :e $MYVIMRC<CR>
 
 nnoremap <Leader>t :call ShowTodos()<CR>
@@ -201,10 +204,11 @@ endfunction
 
 command! TrimWhiteSpaces :%s/\s\+$//e
 
-map <M-S> :mksession! ~/vimsessions/previous.vim<CR>
-map <M-L> :source ~/vimsessions/previous.vim<CR>
-
-hi QuickFixLine guifg=NONE guibg=NONE
+autocmd FileType java iabbrev <buffer> class public final class Foo {<CR><CR>}<Up><Space><Space>
+autocmd FileType java iabbrev <buffer> main public static void main(final String[] args) {<CR><CR>}<Up><Space><Space>
+autocmd FileType java iabbrev <buffer> proc private void foo() {<CR><CR>}<Up><Space><Space>
+autocmd FileType java iabbrev <buffer> try try {<CR>} catch (final Exception ex) {<CR>}<Esc>
+autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
 
 if has('gui_running')
     set titlestring=GVIM
@@ -265,6 +269,8 @@ if has('gui_running')
     command! Fullscreen :call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)
     map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 endif
+
+hi QuickFixLine guifg=NONE guibg=NONE
 
 hi ExtraWhitespace gui=NONE guibg=blue
 match ExtraWhitespace /\s\+$/
