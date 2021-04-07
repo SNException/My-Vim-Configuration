@@ -50,26 +50,7 @@ source $VIMRUNTIME/menu.vim
 let java_ignore_javadoc=1
 let g:netrw_sort_direction="reverse"
 
-augroup MyAutoGroup
-    autocmd!
-
-    autocmd FileType netrw setl bufhidden=wipe
-
-    autocmd FileType java iabbrev <buffer> classa public final class Foo {<CR><CR>}<Up><Space><Space>
-    autocmd FileType java iabbrev <buffer> psvm public static void main(final String[] args) {<CR><CR>}<Up><Space><Space>
-    autocmd FileType java iabbrev <buffer> proc private void foo() {<CR><CR>}<Up><Space><Space>
-    autocmd FileType java iabbrev <buffer> trya try {<CR>} catch (final Exception ex) {<CR>}<Esc>
-    autocmd FileType java iabbrev <buffer> fora for (int i = 0; i < ; i++) {<Esc>7hi<Esc>
-    autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
-
-    if has('gui_running')
-        if has('win32')
-            au GUIEnter * simalt ~x
-        endif
-    endif
-
-augroup END
-
+autocmd FileType netrw setl bufhidden=wipe
 let g:netrw_fastbrowse = 0
 let g:netrw_banner = 0
 let g:netrw_browse_split = 4
@@ -226,6 +207,10 @@ command! TrimWhiteSpaces :%s/\s\+$//e
 if has('gui_running')
     set titlestring=GVIM
 
+    if has('win32')
+        au GUIEnter * simalt ~x
+    endif
+
     let g:font_size = 21
     execute 'set guifont=Ubuntu_Mono:h' . g:font_size
 
@@ -283,9 +268,17 @@ hi QuickFixLine guifg=NONE guibg=NONE
 
 hi ExtraWhitespace gui=NONE guibg=blue
 match ExtraWhitespace /\s\+$/
-au BufWinEnter * match ExtraWhitespace /\s\+$/
-au InsertLeave * match ExtraWhitespace /\s\+$/
-au BufWinLeave * call clearmatches()
-au InsertEnter * call clearmatches()
-au BufWinEnter quickfix call clearmatches()
-au BufWinEnter quickfix setlocal cul
+
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+autocmd InsertEnter * call clearmatches()
+autocmd BufWinEnter quickfix call clearmatches()
+autocmd BufWinEnter quickfix setlocal cul
+
+autocmd FileType java iabbrev <buffer> classa public final class Foo {<CR><CR>}<Up><Space><Space>
+autocmd FileType java iabbrev <buffer> psvm public static void main(final String[] args) {<CR><CR>}<Up><Space><Space>
+autocmd FileType java iabbrev <buffer> proc private void foo() {<CR><CR>}<Up><Space><Space>
+autocmd FileType java iabbrev <buffer> trya try {<CR>} catch (final Exception ex) {<CR>}<Esc>
+autocmd FileType java iabbrev <buffer> fora for (int i = 0; i < ; i++) {<Esc>7hi<Esc>
+autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
