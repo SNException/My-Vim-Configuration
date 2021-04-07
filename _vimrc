@@ -50,7 +50,26 @@ source $VIMRUNTIME/menu.vim
 let java_ignore_javadoc=1
 let g:netrw_sort_direction="reverse"
 
-autocmd FileType netrw setl bufhidden=wipe
+augroup MyAutoGroup
+    autocmd!
+
+    autocmd FileType netrw setl bufhidden=wipe
+
+    autocmd FileType java iabbrev <buffer> classa public final class Foo {<CR><CR>}<Up><Space><Space>
+    autocmd FileType java iabbrev <buffer> psvm public static void main(final String[] args) {<CR><CR>}<Up><Space><Space>
+    autocmd FileType java iabbrev <buffer> proc private void foo() {<CR><CR>}<Up><Space><Space>
+    autocmd FileType java iabbrev <buffer> trya try {<CR>} catch (final Exception ex) {<CR>}<Esc>
+    autocmd FileType java iabbrev <buffer> fora for (int i = 0; i < ; i++) {<Esc>7hi<Esc>
+    autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
+
+    if has('gui_running')
+        if has('win32')
+            au GUIEnter * simalt ~x
+        endif
+    endif
+
+augroup END
+
 let g:netrw_fastbrowse = 0
 let g:netrw_banner = 0
 let g:netrw_browse_split = 4
@@ -95,7 +114,7 @@ nnoremap <silent><expr> <Leader>f (&hls && v:hlsearch ? ':nohls' : ':set hls')."
 nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
-map <M-S> :mksession! ~/vimsessions/previous.vim<CR>
+map <M-S> :mksession! ~/vimsessions/previous.vim<CR><bar>:echo "Session saved!"<CR>
 map <M-L> :source ~/vimsessions/previous.vim<CR>
 
 map <F12> :e $MYVIMRC<CR>
@@ -204,19 +223,8 @@ endfunction
 
 command! TrimWhiteSpaces :%s/\s\+$//e
 
-autocmd FileType java iabbrev <buffer> classa public final class Foo {<CR><CR>}<Up><Space><Space>
-autocmd FileType java iabbrev <buffer> maina public static void main(final String[] args) {<CR><CR>}<Up><Space><Space>
-autocmd FileType java iabbrev <buffer> proc private void foo() {<CR><CR>}<Up><Space><Space>
-autocmd FileType java iabbrev <buffer> trya try {<CR>} catch (final Exception ex) {<CR>}<Esc>
-autocmd FileType java iabbrev <buffer> fora for (int i = 0; i < ; i++) {<Esc>7hi<Esc>
-autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
-
 if has('gui_running')
     set titlestring=GVIM
-
-    if has('win32')
-        au GUIEnter * simalt ~x
-    endif
 
     let g:font_size = 21
     execute 'set guifont=Ubuntu_Mono:h' . g:font_size
