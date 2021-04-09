@@ -96,7 +96,7 @@ nnoremap <Leader><Tab> :b#<CR>
 nnoremap <Leader><Leader> :e <C-R>=expand("%:p:h") . "\\" <CR>
 
 map <M-S> :mksession! ~/vimsessions/previous.vim<CR><bar>:echo "Session saved!"<CR>
-map <M-L> :source ~/vimsessions/previous.vim<CR>
+map <M-L> :source ~/vimsessions/previous.vim<CR><bar>:source $MYVIMRC<CR><bar>:echo "Session loaded!"<CR>
 
 map <F12> :e $MYVIMRC<CR>
 
