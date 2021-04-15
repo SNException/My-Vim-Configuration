@@ -58,7 +58,7 @@ let g:netrw_browse_split = 4
 let mapleader = "\<Space>"
 set timeoutlen=300
 
-inoremap jj <ESC>
+inoremap jj <Esc>`^
 cnoremap jj <C-c>
 tnoremap jj <C-\><C-n>
 
@@ -211,13 +211,13 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    let g:font_size = 21
-    execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+    let g:font_size = 19
+    execute 'set guifont=Consolas:h' . g:font_size
 
     map <M-=> :call ResetFontSize()<CR>
     function! ResetFontSize()
-        let g:font_size = 21
-        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+        let g:font_size = 19
+        execute 'set guifont=Consolas:h' . g:font_size
         wincmd =
         redraw!
     endfunction
@@ -228,7 +228,7 @@ if has('gui_running')
             return
         endif
         let g:font_size = g:font_size + 1
-        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+        execute 'set guifont=Consolas:h' . g:font_size
         wincmd =
         redraw!
     endfunction
@@ -239,7 +239,7 @@ if has('gui_running')
             return
         endif
         let g:font_size = g:font_size - 1
-        execute 'set guifont=Ubuntu_Mono:h' . g:font_size
+        execute 'set guifont=Consolas:h' . g:font_size
         wincmd =
         redraw!
     endfunction
