@@ -12,7 +12,6 @@ set hidden
 set autoread
 set nocul
 set foldcolumn=0
-set nowrap
 syntax on
 
 set path+=**
@@ -30,6 +29,7 @@ set softtabstop=4
 set expandtab
 
 set hlsearch
+set smartcase
 set ignorecase
 set incsearch
 
@@ -127,8 +127,12 @@ function! ExecuteCommandAsync()
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
             endif
-            execute 'below terminal cmd /c' . cmd
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . cmd
             exe 'f ' . 'Output Buffer'
+            wincmd w
             wincmd =
             redraw!
         else
@@ -148,8 +152,12 @@ function! Run()
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
             endif
-            execute 'below terminal cmd /c' . cmd
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . cmd
             exe 'f ' . 'Output Buffer'
+            wincmd w
             wincmd =
         else
             echon "Your Vim does not have the internal terminal."
@@ -168,8 +176,12 @@ function! Build()
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
             endif
-            execute 'below terminal cmd /c' . cmd
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . cmd
             exe 'f ' . 'Output Buffer'
+            wincmd w
             wincmd =
         else
             echon "Your Vim does not have the internal terminal."
@@ -188,7 +200,6 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    " let g:font_size = 19
     let g:font_size = 15
     execute 'set guifont=Consolas:h' . g:font_size
 
@@ -260,4 +271,3 @@ autocmd FileType java iabbrev <buffer> proc private void foo() {<CR><CR>}<Up><Sp
 autocmd FileType java iabbrev <buffer> trya try {<CR>} catch (final Exception ex) {<CR>}<Esc>
 autocmd FileType java iabbrev <buffer> fora for (int i = 0; i < ; i++) {<Esc>7hi<Esc>
 autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
-
