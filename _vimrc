@@ -265,9 +265,5 @@ autocmd InsertEnter * call clearmatches()
 autocmd BufWinEnter quickfix call clearmatches()
 autocmd BufWinEnter quickfix setlocal cul
 
-autocmd FileType java iabbrev <buffer> classa public final class Foo {<CR><CR>}<Up><Space><Space>
-autocmd FileType java iabbrev <buffer> psvm public static void main(final String[] args) {<CR><CR>}<Up><Space><Space>
-autocmd FileType java iabbrev <buffer> proc private void foo() {<CR><CR>}<Up><Space><Space>
-autocmd FileType java iabbrev <buffer> trya try {<CR>} catch (final Exception ex) {<CR>}<Esc>
-autocmd FileType java iabbrev <buffer> fora for (int i = 0; i < ; i++) {<Esc>7hi<Esc>
+autocmd FileType java iabbrev <buffer> sout System.out.println("");<Esc>2hi<Esc>
 autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
