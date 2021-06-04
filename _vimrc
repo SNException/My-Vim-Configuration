@@ -10,8 +10,10 @@ set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set mouse=a
 set hidden
 set autoread
-set nocul
+set cul
 set foldcolumn=0
+set complete-=t
+set nowrap
 syntax on
 
 set path+=**
@@ -147,7 +149,7 @@ nnoremap <Leader>r :call Run()<CR>
 function! Run()
     if has('win32')
         if has('terminal')
-            let cmd = 'run'
+            let cmd = 'build run'
             let prev_term_buf_id = bufnr('Output Buffer')
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
@@ -201,23 +203,23 @@ if has('gui_running')
     endif
 
     let g:font_size = 15
-    execute 'set guifont=Consolas:h' . g:font_size
+    execute 'set guifont=Hack:h' . g:font_size
 
     map <M-=> :call ResetFontSize()<CR>
     function! ResetFontSize()
         let g:font_size = 15
-        execute 'set guifont=Consolas:h' . g:font_size
+        execute 'set guifont=Hack:h' . g:font_size
         wincmd =
         redraw!
     endfunction
 
     map <M-+> :call IncreaseFontSize()<CR>
     function! IncreaseFontSize()
-        if g:font_size == 72
+        if g:font_size >= 72
             return
         endif
-        let g:font_size = g:font_size + 1
-        execute 'set guifont=Consolas:h' . g:font_size
+        let g:font_size = g:font_size + 2
+        execute 'set guifont=Hack:h' . g:font_size
         wincmd =
         redraw!
     endfunction
@@ -227,13 +229,13 @@ if has('gui_running')
         if g:font_size == 1
             return
         endif
-        let g:font_size = g:font_size - 1
-        execute 'set guifont=Consolas:h' . g:font_size
+        let g:font_size = g:font_size - 2
+        execute 'set guifont=Hack:h' . g:font_size
         wincmd =
         redraw!
     endfunction
 
-    colorscheme my_zenburn
+    colorscheme my_gruvbox_material
 
     set guioptions-=e
     set guioptions-=T
