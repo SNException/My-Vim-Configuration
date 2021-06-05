@@ -10,7 +10,7 @@ set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set mouse=a
 set hidden
 set autoread
-set cul
+set nocul
 set foldcolumn=0
 set complete-=t
 set nowrap
@@ -203,12 +203,12 @@ if has('gui_running')
     endif
 
     let g:font_size = 15
-    execute 'set guifont=Hack:h' . g:font_size
+    execute 'set guifont=Consolas:h' . g:font_size
 
     map <M-=> :call ResetFontSize()<CR>
     function! ResetFontSize()
         let g:font_size = 15
-        execute 'set guifont=Hack:h' . g:font_size
+        execute 'set guifont=Consolas:h' . g:font_size
         wincmd =
         redraw!
     endfunction
@@ -219,7 +219,7 @@ if has('gui_running')
             return
         endif
         let g:font_size = g:font_size + 2
-        execute 'set guifont=Hack:h' . g:font_size
+        execute 'set guifont=Consolas:h' . g:font_size
         wincmd =
         redraw!
     endfunction
@@ -230,12 +230,12 @@ if has('gui_running')
             return
         endif
         let g:font_size = g:font_size - 2
-        execute 'set guifont=Hack:h' . g:font_size
+        execute 'set guifont=Consolas:h' . g:font_size
         wincmd =
         redraw!
     endfunction
 
-    colorscheme my_gruvbox_material
+    colorscheme plain_dark
 
     set guioptions-=e
     set guioptions-=T
@@ -269,3 +269,9 @@ autocmd BufWinEnter quickfix setlocal cul
 
 autocmd FileType java iabbrev <buffer> sout System.out.println("");<Esc>2hi<Esc>
 autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
+
+" augroup CursorLine
+    " autocmd!
+    " autocmd VimEnter,WinEnter,BufWinEnter * set cursorline
+    " autocmd WinLeave                      * set nocursorline
+" augroup END
