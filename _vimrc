@@ -50,7 +50,6 @@ source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
 let java_ignore_javadoc=1
-let g:netrw_sort_direction="reverse"
 
 autocmd FileType netrw setl bufhidden=wipe
 let g:netrw_fastbrowse = 0
