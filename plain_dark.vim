@@ -67,10 +67,10 @@ hi TabLineSel   		   gui=NONE guifg=#ffffff guibg=#323232
 hi TabLineFill  		   gui=NONE guifg=#a0a0a0 guibg=#323232
 
 " Statusline
-hi StatusLine              gui=NONE guifg=#323232 guibg=#777777
-hi StatusLineNC            gui=NONE guifg=#323232 guibg=#555555
-hi StatusLineTerm          gui=NONE guifg=#323232 guibg=#777777
-hi StatusLineTermNC        gui=NONE guifg=#323232 guibg=#555555
+hi StatusLine              gui=NONE guifg=#bebebe guibg=#444444
+hi StatusLineNC            gui=NONE guifg=#bebebe guibg=#353535
+hi StatusLineTerm          gui=NONE guifg=#bebebe guibg=#444444
+hi StatusLineTermNC        gui=NONE guifg=#bebebe guibg=#353535
 
 " Autocomplete
 hi WildMenu                gui=bold guifg=#444444 guibg=#bebebe
@@ -83,11 +83,11 @@ hi PmenuThumb 		       gui=NONE guifg=#bebebe guibg=#323232
 hi Cursor                  gui=NONE guifg=#323232 guibg=#ffffff
 hi iCursor                 gui=NONE guifg=#323232 guibg=#ffffff
 hi lCursor                 gui=NONE guifg=#323232 guibg=#ffffff
-hi CursorLine              gui=NONE guifg=NONE    guibg=#444444
-hi CursorColumn            gui=NONE guifg=NONE    guibg=#444444
+hi CursorLine              gui=NONE guifg=NONE    guibg=#404040
+hi CursorColumn            gui=NONE guifg=NONE    guibg=#404040
 
 " Searching
-hi Search 		           gui=NONE guifg=#ffffff guibg=#1111ff
+hi Search 		           gui=NONE guifg=#ffffff guibg=#666666
 hi IncSearch 		       gui=NONE guifg=#323232 guibg=#ffff00
 
 " Line number

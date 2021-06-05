@@ -10,7 +10,7 @@ set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 set mouse=a
 set hidden
 set autoread
-set nocul
+set cul
 set foldcolumn=0
 set complete-=t
 set nowrap
@@ -270,8 +270,8 @@ autocmd BufWinEnter quickfix setlocal cul
 autocmd FileType java iabbrev <buffer> sout System.out.println("");<Esc>2hi<Esc>
 autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
 
-" augroup CursorLine
-    " autocmd!
-    " autocmd VimEnter,WinEnter,BufWinEnter * set cursorline
-    " autocmd WinLeave                      * set nocursorline
-" augroup END
+augroup CursorLine
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * set cursorline
+    autocmd WinLeave                      * set nocursorline
+augroup END
