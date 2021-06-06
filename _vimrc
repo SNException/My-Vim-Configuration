@@ -140,11 +140,28 @@ function! SearchCode()
     wincmd =
 endfunction
 
-" TODO(nschultz): Implement this function!
-" nnoremap <Leader>p :call SearchProcedure()<CR>
-" function! SearchProcedure()
-    " (public|protected|private|static|\s) +[\w\<\>\[\]]+\s+(\w+) *\([^\)]*\) *(\{?|[^;])
-" endfunction
+" TODO(nschultz): This can be improved by A LOT!
+" (public|protected|private|static|\s) +[\w\<\>\[\]]+\s+(\w+) *\([^\)]*\) *(\{?|[^;])
+command! SearchFunction :call SearchFunction()
+nnoremap <Leader>p :call SearchFunction()<CR>
+function! SearchFunction()
+    let name = input("Function name: ")
+    if name == ''
+        return
+    endif
+    try
+        let func_decl = '\(public\|protected\|private\|static\|\s\) \w\+ ' . name . '(.*)'
+        execute 'vimgrep /' . func_decl . '/jg **/*.java'
+    catch /E:480:/
+        return
+    endtry
+    cclose
+    if winnr('$') > 1
+        execute 'wincmd o'
+    endif
+    vert copen
+    wincmd =
+endfunction
 
 nnoremap <Leader>e :call ExecuteCommandAsync()<CR>
 function! ExecuteCommandAsync()
