@@ -140,8 +140,6 @@ function! SearchCode()
     wincmd =
 endfunction
 
-" TODO(nschultz): This can be improved by A LOT!
-" (public|protected|private|static|\s) +[\w\<\>\[\]]+\s+(\w+) *\([^\)]*\) *(\{?|[^;])
 command! SearchFunction :call SearchFunction()
 nnoremap <Leader>p :call SearchFunction()<CR>
 function! SearchFunction()
@@ -150,9 +148,8 @@ function! SearchFunction()
         return
     endif
     try
-        " let func_decl = '\(public\|protected\|private\|static\|\s\) \w\+ ' . name . '(.*)'
-        let func_decl = '\(public\|protected\|private\|static\|\s*\)[A-Z\s\+]\w\+ ' . name . '(.*)'
-        execute 'vimgrep /' . func_decl . '/jg **/*.java'
+        let func_decl = '\w\+\s\+' . name . '\s*(.*).*[^;]$'
+        execute 'vimgrep /' . func_decl . '/j **/*.java'
     catch /E:480:/
         return
     endtry
