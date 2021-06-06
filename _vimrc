@@ -6,7 +6,7 @@ set clipboard=unnamed
 set scrolloff=2
 set ruler
 set laststatus=2
-set statusline=%<%t\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%t\ %h%m%r%=%-14(#%l%)\ %P
 set mouse=a
 set hidden
 set autoread
