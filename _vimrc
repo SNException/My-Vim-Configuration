@@ -148,7 +148,8 @@ function! SearchFunction()
         return
     endif
     try
-        let func_decl = '\w\+\s\+' . name . '\s*(.*).*[^;]$'
+        " let func_decl = '\w\+\s\+' . name . '\s*(.*).*[^;]$'
+        let func_decl = '\(public\|protected\|private\|static\|strictfp\|\abstract\|default\|synchronized\)\?\s*\(\w\+\s\+\)\+' . name . '\s*(.*).*[^;]$'
         execute 'vimgrep /' . func_decl . '/j **/*.java'
     catch /E:480:/
         return
