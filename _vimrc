@@ -101,19 +101,23 @@ map <M-L> :source ~/vimsessions/previous.vim<CR><bar>:source $MYVIMRC<CR><bar>:e
 
 map <F12> :e $MYVIMRC<CR>
 
-nnoremap <Leader>s :call SearchGlobally()<CR>
-function! SearchGlobally()
+nnoremap <Leader>s :call SearchSomething()<CR>
+function! SearchSomething()
     let what = input("Global search: ")
     if what == ''
         return
     endif
-    execute 'vimgrep /' . what . '/j **/*'
+    try
+        execute 'vimgrep /' . what . '/j **/*'
+    catch /E:480:/
+        return
+    endtry
+    cclose
     if winnr('$') > 1
         execute 'wincmd o'
     endif
     vert copen
     wincmd =
-    redraw!
 endfunction
 
 nnoremap <Leader>e :call ExecuteCommandAsync()<CR>
@@ -144,11 +148,11 @@ function! ExecuteCommandAsync()
     endif
 endfunction
 
-nnoremap <Leader>r :call Run()<CR>
-function! Run()
+nnoremap <Leader>r :call RunCmd1()<CR>
+let g:cmd1 = 'build run'
+function! RunCmd1()
     if has('win32')
         if has('terminal')
-            let cmd = 'build run'
             let prev_term_buf_id = bufnr('Output Buffer')
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
@@ -156,7 +160,7 @@ function! Run()
             if winnr('$') > 1
                 execute 'wincmd o'
             endif
-            execute 'vert terminal cmd /c' . cmd
+            execute 'vert terminal cmd /c' . g:cmd1
             exe 'f ' . 'Output Buffer'
             wincmd w
             wincmd =
@@ -168,11 +172,11 @@ function! Run()
     endif
 endfunction
 
-nnoremap <Leader>m :call Build()<CR>
-function! Build()
+nnoremap <Leader>m :call RunCmd2()<CR>
+let g:cmd2 = 'build'
+function! RunCmd2()
     if has('win32')
         if has('terminal')
-            let cmd = 'build'
             let prev_term_buf_id = bufnr('Output Buffer')
             if prev_term_buf_id != -1
                 execute 'bd! ' . prev_term_buf_id
@@ -180,7 +184,7 @@ function! Build()
             if winnr('$') > 1
                 execute 'wincmd o'
             endif
-            execute 'vert terminal cmd /c' . cmd
+            execute 'vert terminal cmd /c' . g:cmd2
             exe 'f ' . 'Output Buffer'
             wincmd w
             wincmd =
