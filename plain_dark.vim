@@ -7,6 +7,7 @@ endif
 let g:colors_name = "plain_dark"
 
 " Normal (fg/bg)
+" #fafbe5
 hi Normal                  gui=NONE guifg=#b9b9b9 guibg=#323232
 
 " Visual/Selection
@@ -102,7 +103,7 @@ hi DiffDelete              gui=NONE guifg=#ee1111 guibg=#323232
 hi DiffText  		       gui=NONE guifg=#b9b9b9 guibg=#323232
 
 " Misc
-hi VertSplit               gui=NONE guifg=#666666 guibg=#666666
+hi VertSplit               gui=NONE guifg=#484848 guibg=#484848
 hi EndOfBuffer 		       gui=NONE guifg=#555555 guibg=#323232
 hi Directory 		       gui=NONE guifg=#cccccc guibg=#444444
 hi Error                   gui=NONE guifg=#b9b9b9 guibg=#323232
