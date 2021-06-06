@@ -10,20 +10,28 @@ let g:colors_name = "plain_dark"
 " #fafbe5
 " fcffaf
 hi Normal                  gui=NONE guifg=#b9b9b9 guibg=#323232
+hi Comment                 gui=NONE guifg=#fcffaf guibg=#323232
+hi SpecialComment          gui=NONE guifg=#fcffaf guibg=#323232
+hi Todo                    gui=NONE guifg=#fcffaf guibg=#323232
+hi Note                    gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocTags             gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocParam            gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocSeeTagParam      gui=NONE guifg=#fcffaf guibg=#323232
+hi javaCommentTitle        gui=NONE guifg=#fcffaf guibg=#323232
 
 " Visual/Selection
 hi Visual				   gui=NONE guifg=NONE    guibg=#1111ff
 hi VisualNOS               gui=NONE guifg=NONE    guibg=#1111ff
 
 " Comments
-hi Comment                 gui=NONE guifg=#55ff55 guibg=#323232
-hi SpecialComment          gui=NONE guifg=#55ff55 guibg=#323232
-hi Todo                    gui=NONE guifg=#55ff55 guibg=#323232
-hi Note                    gui=NONE guifg=#55ff55 guibg=#323232
-hi javaDocTags             gui=NONE guifg=#55ff55 guibg=#323232
-hi javaDocParam            gui=NONE guifg=#55ff55 guibg=#323232
-hi javaDocSeeTagParam      gui=NONE guifg=#55ff55 guibg=#323232
-hi javaCommentTitle        gui=NONE guifg=#55ff55 guibg=#323232
+hi Comment                 gui=NONE guifg=#fcffaf guibg=#323232
+hi SpecialComment          gui=NONE guifg=#fcffaf guibg=#323232
+hi Todo                    gui=NONE guifg=#fcffaf guibg=#323232
+hi Note                    gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocTags             gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocParam            gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocSeeTagParam      gui=NONE guifg=#fcffaf guibg=#323232
+hi javaCommentTitle        gui=NONE guifg=#fcffaf guibg=#323232
 
 " Keywords I
 hi Keyword                 gui=NONE guifg=#b9b9b9 guibg=#323232
