@@ -123,7 +123,7 @@ endfunction
 command! SearchCode :call SearchCode()
 nnoremap <Leader>s :call SearchCode()<CR>
 function! SearchCode()
-    let what = input("Global search (java): ")
+    let what = input("Search code: ")
     if what == ''
         return
     endif
