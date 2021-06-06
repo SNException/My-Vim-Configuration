@@ -18,7 +18,7 @@ syntax on
 
 set path+=**
 set suffixesadd=.java
-set wildignore+=*.jar,*.zip,*.class
+set wildignore=
 set wildmenu
 set wildmode=list:longest,full
 
@@ -101,8 +101,8 @@ map <M-L> :source ~/vimsessions/previous.vim<CR><bar>:source $MYVIMRC<CR><bar>:e
 
 map <F12> :e $MYVIMRC<CR>
 
-nnoremap <Leader>s :call SearchSomething()<CR>
-function! SearchSomething()
+command! SearchAnything :call SearchAnything()
+function! SearchAnything()
     let what = input("Global search: ")
     if what == ''
         return
@@ -119,6 +119,32 @@ function! SearchSomething()
     vert copen
     wincmd =
 endfunction
+
+command! SearchCode :call SearchCode()
+nnoremap <Leader>s :call SearchCode()<CR>
+function! SearchCode()
+    let what = input("Global search (java): ")
+    if what == ''
+        return
+    endif
+    try
+        execute 'vimgrep /' . what . '/j **/*.java'
+    catch /E:480:/
+        return
+    endtry
+    cclose
+    if winnr('$') > 1
+        execute 'wincmd o'
+    endif
+    vert copen
+    wincmd =
+endfunction
+
+" TODO(nschultz): Implement this function!
+" nnoremap <Leader>p :call SearchProcedure()<CR>
+" function! SearchProcedure()
+    " (public|protected|private|static|\s) +[\w\<\>\[\]]+\s+(\w+) *\([^\)]*\) *(\{?|[^;])
+" endfunction
 
 nnoremap <Leader>e :call ExecuteCommandAsync()<CR>
 function! ExecuteCommandAsync()
