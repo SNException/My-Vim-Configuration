@@ -150,7 +150,11 @@ function! SearchFunction()
         return
     endif
     try
+<<<<<<< HEAD
         " let func_decl = '\(\w\+\s\+\)\+' . name . '\s*(.*).*[^;]$'
+=======
+        " let func_decl = '\w\+\s\+' . name . '\s*(.*).*[^;]$'
+>>>>>>> 75d942f0aad76ab14da8e483862c548ac76c3b0d
         let func_decl = '\(public\|protected\|private\|static\|strictfp\|\abstract\|default\|synchronized\)\?\s*\(\w\+\s\+\)\+' . name . '\s*(.*).*[^;]$'
         execute 'vimgrep /' . func_decl . '/j **/*.java'
     catch /E:480:/
@@ -192,8 +196,58 @@ function! ExecuteCommandAsync()
     endif
 endfunction
 
+<<<<<<< HEAD
 nnoremap <Leader>m :!build<CR>
 nnoremap <Leader>r :!build run<CR>
+=======
+nnoremap <Leader>r :call RunCmd1()<CR>
+let g:cmd1 = 'build run'
+function! RunCmd1()
+    if has('win32')
+        if has('terminal')
+            let prev_term_buf_id = bufnr('Output Buffer')
+            if prev_term_buf_id != -1
+                execute 'bd! ' . prev_term_buf_id
+            endif
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . g:cmd1
+            exe 'f ' . 'Output Buffer'
+            wincmd w
+            wincmd =
+        else
+            echon "Your Vim does not have the internal terminal."
+        endif
+    else
+        echon "This functionality only works on Windows."
+    endif
+endfunction
+
+nnoremap <Leader>m :call RunCmd2()<CR>
+let g:cmd2 = 'build'
+function! RunCmd2()
+    if has('win32')
+        if has('terminal')
+            let prev_term_buf_id = bufnr('Output Buffer')
+            if prev_term_buf_id != -1
+                execute 'bd! ' . prev_term_buf_id
+            endif
+            if winnr('$') > 1
+                execute 'wincmd o'
+            endif
+            execute 'vert terminal cmd /c' . g:cmd2
+            exe 'f ' . 'Output Buffer'
+            wincmd w
+            wincmd =
+        else
+            echon "Your Vim does not have the internal terminal."
+        endif
+    else
+        echon "This functionality only works on Windows."
+    endif
+endfunction
+>>>>>>> 75d942f0aad76ab14da8e483862c548ac76c3b0d
 
 command! TrimWhiteSpaces :%s/\s\+$//e
 

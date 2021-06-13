@@ -8,21 +8,33 @@ let g:colors_name = "plain_dark"
 
 " Normal (fg/bg)
 " #fafbe5
+<<<<<<< HEAD
+=======
+" fcffaf
+>>>>>>> 75d942f0aad76ab14da8e483862c548ac76c3b0d
 hi Normal                  gui=NONE guifg=#b9b9b9 guibg=#323232
+hi Comment                 gui=NONE guifg=#fcffaf guibg=#323232
+hi SpecialComment          gui=NONE guifg=#fcffaf guibg=#323232
+hi Todo                    gui=NONE guifg=#fcffaf guibg=#323232
+hi Note                    gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocTags             gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocParam            gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocSeeTagParam      gui=NONE guifg=#fcffaf guibg=#323232
+hi javaCommentTitle        gui=NONE guifg=#fcffaf guibg=#323232
 
 " Visual/Selection
 hi Visual				   gui=NONE guifg=NONE    guibg=#1111ff
 hi VisualNOS               gui=NONE guifg=NONE    guibg=#1111ff
 
 " Comments
-hi Comment                 gui=NONE guifg=#fc2caf guibg=#323232
-hi SpecialComment          gui=NONE guifg=#fc2caf guibg=#323232
-hi Todo                    gui=NONE guifg=#fc2caf guibg=#323232
-hi Note                    gui=NONE guifg=#fc2caf guibg=#323232
-hi javaDocTags             gui=NONE guifg=#fc2caf guibg=#323232
-hi javaDocParam            gui=NONE guifg=#fc2caf guibg=#323232
-hi javaDocSeeTagParam      gui=NONE guifg=#fc2caf guibg=#323232
-hi javaCommentTitle        gui=NONE guifg=#fc2caf guibg=#323232
+hi Comment                 gui=NONE guifg=#fcffaf guibg=#323232
+hi SpecialComment          gui=NONE guifg=#fcffaf guibg=#323232
+hi Todo                    gui=NONE guifg=#fcffaf guibg=#323232
+hi Note                    gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocTags             gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocParam            gui=NONE guifg=#fcffaf guibg=#323232
+hi javaDocSeeTagParam      gui=NONE guifg=#fcffaf guibg=#323232
+hi javaCommentTitle        gui=NONE guifg=#fcffaf guibg=#323232
 
 " Keywords I
 hi Keyword                 gui=NONE guifg=#b9b9b9 guibg=#323232
