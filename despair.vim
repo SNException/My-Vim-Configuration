@@ -10,8 +10,8 @@ let g:colors_name = "despair"
 hi Normal                  gui=NONE guifg=#aaaaaa guibg=#100000
 
 " Visual/Selection
-hi Visual				   gui=NONE guifg=NONE    guibg=#444444
-hi VisualNOS               gui=NONE guifg=NONE    guibg=#444444
+hi Visual				   gui=NONE guifg=#aaaaaa    guibg=#774444
+hi VisualNOS               gui=NONE guifg=#aaaaaa    guibg=#774444
 
 " Comments
 " #aa1111
@@ -67,10 +67,10 @@ hi TabLineSel   		   gui=NONE guifg=#ffffff guibg=#100000
 hi TabLineFill  		   gui=NONE guifg=#a0a0a0 guibg=#100000
 
 " Statusline
-hi StatusLine              gui=NONE guifg=#100000 guibg=#777777
-hi StatusLineNC            gui=NONE guifg=#100000 guibg=#555555
-hi StatusLineTerm          gui=NONE guifg=#100000 guibg=#777777
-hi StatusLineTermNC        gui=NONE guifg=#100000 guibg=#555555
+hi StatusLine              gui=NONE guifg=#100000 guibg=#bbbbbb
+hi StatusLineNC            gui=NONE guifg=#100000 guibg=#777777
+hi StatusLineTerm          gui=NONE guifg=#100000 guibg=#bbbbbb
+hi StatusLineTermNC        gui=NONE guifg=#100000 guibg=#777777
 
 " Autocomplete
 hi WildMenu                gui=bold guifg=#444444 guibg=#aaaaaa
@@ -83,8 +83,8 @@ hi PmenuThumb 		       gui=NONE guifg=#aaaaaa guibg=#100000
 hi Cursor                  gui=NONE guifg=#100000 guibg=#cccccc
 hi iCursor                 gui=NONE guifg=#100000 guibg=#cccccc
 hi lCursor                 gui=NONE guifg=#100000 guibg=#cccccc
-hi CursorLine              gui=NONE guifg=NONE    guibg=#555555
-hi CursorColumn            gui=NONE guifg=NONE    guibg=#555555
+hi CursorLine              gui=NONE guifg=NONE    guibg=#221111
+hi CursorColumn            gui=NONE guifg=NONE    guibg=#221111
 
 " Searching
 hi Search 		           gui=NONE guifg=#ffffff guibg=#1111ff
