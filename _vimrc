@@ -10,11 +10,11 @@ set statusline=%<%t\ %h%m%r%=%-14(#%l%)\ %P
 set mouse=a
 set hidden
 set autoread
-set nocul
 set foldcolumn=0
 set complete-=t
 set nowrap
 set nowrapscan
+set nocul
 syntax on
 
 set path+=**
@@ -150,11 +150,7 @@ function! SearchFunction()
         return
     endif
     try
-<<<<<<< HEAD
         " let func_decl = '\(\w\+\s\+\)\+' . name . '\s*(.*).*[^;]$'
-=======
-        " let func_decl = '\w\+\s\+' . name . '\s*(.*).*[^;]$'
->>>>>>> 75d942f0aad76ab14da8e483862c548ac76c3b0d
         let func_decl = '\(public\|protected\|private\|static\|strictfp\|\abstract\|default\|synchronized\)\?\s*\(\w\+\s\+\)\+' . name . '\s*(.*).*[^;]$'
         execute 'vimgrep /' . func_decl . '/j **/*.java'
     catch /E:480:/
@@ -196,58 +192,8 @@ function! ExecuteCommandAsync()
     endif
 endfunction
 
-<<<<<<< HEAD
 nnoremap <Leader>m :!build<CR>
 nnoremap <Leader>r :!build run<CR>
-=======
-nnoremap <Leader>r :call RunCmd1()<CR>
-let g:cmd1 = 'build run'
-function! RunCmd1()
-    if has('win32')
-        if has('terminal')
-            let prev_term_buf_id = bufnr('Output Buffer')
-            if prev_term_buf_id != -1
-                execute 'bd! ' . prev_term_buf_id
-            endif
-            if winnr('$') > 1
-                execute 'wincmd o'
-            endif
-            execute 'vert terminal cmd /c' . g:cmd1
-            exe 'f ' . 'Output Buffer'
-            wincmd w
-            wincmd =
-        else
-            echon "Your Vim does not have the internal terminal."
-        endif
-    else
-        echon "This functionality only works on Windows."
-    endif
-endfunction
-
-nnoremap <Leader>m :call RunCmd2()<CR>
-let g:cmd2 = 'build'
-function! RunCmd2()
-    if has('win32')
-        if has('terminal')
-            let prev_term_buf_id = bufnr('Output Buffer')
-            if prev_term_buf_id != -1
-                execute 'bd! ' . prev_term_buf_id
-            endif
-            if winnr('$') > 1
-                execute 'wincmd o'
-            endif
-            execute 'vert terminal cmd /c' . g:cmd2
-            exe 'f ' . 'Output Buffer'
-            wincmd w
-            wincmd =
-        else
-            echon "Your Vim does not have the internal terminal."
-        endif
-    else
-        echon "This functionality only works on Windows."
-    endif
-endfunction
->>>>>>> 75d942f0aad76ab14da8e483862c548ac76c3b0d
 
 command! TrimWhiteSpaces :%s/\s\+$//e
 
@@ -291,7 +237,14 @@ if has('gui_running')
         redraw!
     endfunction
 
-    colorscheme despair
+    colorscheme desert
+    hi TODO guifg=SkyBlue guibg=NONE
+    hi VertSplit guibg=#c2bfa5 guifg=#c2bfa5
+    hi EndOfBuffer guifg=gray20 guibg=grey20
+    hi FoldColumn guifg=gray11 guibg=grey11
+    hi Cursor guifg=black
+    hi StatusLine guibg=#c2bfa5 guifg=black
+    hi StatusLineNC	guibg=gray50 guifg=black
 
     set guitablabel=%t
 
@@ -327,9 +280,3 @@ autocmd BufWinEnter quickfix setlocal cul
 
 autocmd FileType java iabbrev <buffer> sout System.out.println("");<Esc>2hi<Esc>
 autocmd FileType java iabbrev <buffer> serr System.err.println("");<Esc>2hi<Esc>
-
-" augroup CursorLine
-    " autocmd!
-    " autocmd VimEnter,WinEnter,BufWinEnter * set cursorline
-    " autocmd WinLeave                      * set nocursorline
-" augroup END
