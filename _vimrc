@@ -150,7 +150,6 @@ function! SearchFunction()
         return
     endif
     try
-        " let func_decl = '\(\w\+\s\+\)\+' . name . '\s*(.*).*[^;]$'
         let func_decl = '\(public\|protected\|private\|static\|strictfp\|\abstract\|default\|synchronized\)\?\s*\(\w\+\s\+\)\+' . name . '\s*(.*).*[^;]$'
         execute 'vimgrep /' . func_decl . '/j **/*.java'
     catch /E:480:/
@@ -204,8 +203,12 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
+    set lines=57 columns=200
+    winpos 155 25
+
     let g:font_size = 15
     execute 'set guifont=Consolas:h' . g:font_size
+    " execute 'set guifont=Consolas:h' . g:font_size . ':b'
 
     map <M-=> :call ResetFontSize()<CR>
     function! ResetFontSize()
