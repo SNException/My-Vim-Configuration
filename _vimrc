@@ -13,7 +13,7 @@ set autoread
 set foldcolumn=0
 set complete-=t
 set nowrap
-set nowrapscan
+set wrapscan
 set nocul
 syntax on
 
@@ -205,49 +205,45 @@ if has('gui_running')
 
     set lines=57 columns=200
     winpos 155 25
-
     let g:font_size = 15
     execute 'set guifont=Consolas:h' . g:font_size
-    " execute 'set guifont=Consolas:h' . g:font_size . ':b'
 
-    map <M-=> :call ResetFontSize()<CR>
-    function! ResetFontSize()
-        let g:font_size = 15
-        execute 'set guifont=Consolas:h' . g:font_size
-        wincmd =
-        redraw!
-    endfunction
+    colorscheme zenburn
+    hi Visual       gui=NONE   guifg=NONE guibg=#0000cc
+    hi CursorLine   gui=NONE   guibg=#000000
+    hi Label        gui=NONE
+    hi TODO         gui=NONE
+    hi Conditional  gui=NONE
+    hi Character    gui=NONE
+    hi Exception    gui=NONE
+    hi KeyWord      gui=NONE
+    hi PreCondit    gui=NONE
+    hi PreProc      gui=NONE
+    hi Repeat       gui=NONE
+    hi Constant     gui=NONE
+    hi Type         gui=NONE
+    hi Typdef       gui=NONE
+    hi Macro        gui=NONE
+    hi Include      gui=NONE
+    hi Define       gui=NONE
+    hi Boolean      gui=NONE
+    hi String       gui=NONE
+    hi SpecialChar  gui=NONE
+    hi Normal       gui=NONE
+    hi Identifier   gui=NONE
+    hi Structure    gui=NONE
+    hi StorageClass gui=NONE
+    hi Operator     gui=NONE
+    hi Comment      gui=NONE
 
-    map <M-+> :call IncreaseFontSize()<CR>
-    function! IncreaseFontSize()
-        if g:font_size >= 72
-            return
-        endif
-        let g:font_size = g:font_size + 2
-        execute 'set guifont=Consolas:h' . g:font_size
-        wincmd =
-        redraw!
-    endfunction
-
-    map <M--> :call DecreaseFontSize()<CR>
-    function! DecreaseFontSize()
-        if g:font_size == 1
-            return
-        endif
-        let g:font_size = g:font_size - 2
-        execute 'set guifont=Consolas:h' . g:font_size
-        wincmd =
-        redraw!
-    endfunction
-
-    colorscheme desert
-    hi TODO guifg=SkyBlue guibg=NONE
-    hi VertSplit guibg=#c2bfa5 guifg=#c2bfa5
-    hi EndOfBuffer guifg=gray20 guibg=grey20
-    hi FoldColumn guifg=gray11 guibg=grey11
-    hi Cursor guifg=black
-    hi StatusLine guibg=#c2bfa5 guifg=black
-    hi StatusLineNC	guibg=gray50 guifg=black
+    " colorscheme desert
+    " hi TODO         guifg=SkyBlue guibg=NONE
+    " hi VertSplit    guibg=#c2bfa5 guifg=#c2bfa5
+    " hi EndOfBuffer  guifg=gray20 guibg=grey20
+    " hi FoldColumn   guifg=gray11 guibg=grey11
+    " hi Cursor       guifg=black
+    " hi StatusLine   guibg=#c2bfa5 guifg=black
+    " hi StatusLineNC guibg=gray50 guifg=black
 
     set guitablabel=%t
 
