@@ -6,7 +6,7 @@ set clipboard=unnamed
 set scrolloff=2
 set ruler
 set laststatus=2
-set statusline=%<%t\ %h%m%r%=%-14(#%l%)\ %P
+set statusline=%<%t\ %h%m%r%=%-14(L%l%)\ %P
 set mouse=a
 set hidden
 set autoread
@@ -104,6 +104,7 @@ map <M-L> :source ~/vimsessions/previous.vim<CR><bar>:source $MYVIMRC<CR><bar>:e
 map <F12> :e $MYVIMRC<CR>
 
 command! SearchAnything :call SearchAnything()
+nnoremap <F1> :call SearchAnything()<CR>
 function! SearchAnything()
     let what = input("Global search: ")
     if what == ''
@@ -123,7 +124,7 @@ function! SearchAnything()
 endfunction
 
 command! SearchCode :call SearchCode()
-nnoremap <Leader>s :call SearchCode()<CR>
+nnoremap <F2> :call SearchCode()<CR>
 function! SearchCode()
     let what = input("Search code: ")
     if what == ''
@@ -143,7 +144,7 @@ function! SearchCode()
 endfunction
 
 command! SearchFunction :call SearchFunction()
-nnoremap <Leader>p :call SearchFunction()<CR>
+nnoremap <F3> :call SearchFunction()<CR>
 function! SearchFunction()
     let name = input("Function name: ")
     if name == ''
@@ -203,14 +204,12 @@ if has('gui_running')
         au GUIEnter * simalt ~x
     endif
 
-    set lines=57 columns=200
-    winpos 155 25
     let g:font_size = 15
     execute 'set guifont=Consolas:h' . g:font_size
 
     colorscheme zenburn
-    hi Visual       gui=NONE   guifg=NONE guibg=#0000cc
-    hi CursorLine   gui=NONE   guibg=#000000
+    hi Visual       gui=NONE guibg=#0000cc guifg=NONE
+    hi CursorLine   gui=NONE guibg=#000000
     hi Label        gui=NONE
     hi TODO         gui=NONE
     hi Conditional  gui=NONE
@@ -237,13 +236,36 @@ if has('gui_running')
     hi Comment      gui=NONE
 
     " colorscheme desert
-    " hi TODO         guifg=SkyBlue guibg=NONE
+    " hi TODO         guifg=SkyBlue guibg=NONE gui=NONE
     " hi VertSplit    guibg=#c2bfa5 guifg=#c2bfa5
-    " hi EndOfBuffer  guifg=gray20 guibg=grey20
-    " hi FoldColumn   guifg=gray11 guibg=grey11
+    " hi EndOfBuffer  guifg=gray20  guibg=grey20
+    " hi FoldColumn   guifg=gray11  guibg=grey11
     " hi Cursor       guifg=black
     " hi StatusLine   guibg=#c2bfa5 guifg=black
-    " hi StatusLineNC guibg=gray50 guifg=black
+    " hi StatusLineNC guibg=gray50  guifg=black
+    " hi Label        gui=NONE
+    " hi Conditional  gui=NONE
+    " hi Character    gui=NONE
+    " hi Exception    gui=NONE
+    " hi KeyWord      gui=NONE
+    " hi PreCondit    gui=NONE
+    " hi PreProc      gui=NONE
+    " hi Repeat       gui=NONE
+    " hi Constant     gui=NONE
+    " hi Type         gui=NONE
+    " hi Typdef       gui=NONE
+    " hi Macro        gui=NONE
+    " hi Include      gui=NONE
+    " hi Define       gui=NONE
+    " hi Boolean      gui=NONE
+    " hi String       gui=NONE
+    " hi SpecialChar  gui=NONE
+    " hi Normal       gui=NONE
+    " hi Identifier   gui=NONE
+    " hi Structure    gui=NONE
+    " hi StorageClass gui=NONE
+    " hi Operator     gui=NONE
+    " hi Comment      gui=NONE
 
     set guitablabel=%t
 
